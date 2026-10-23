@@ -87,15 +87,14 @@ export default function ThermalReceipt({
           <h2 className="text-sm font-bold uppercase tracking-tight leading-snug">
             {settings.name}
           </h2>
-          {settings.receiptHeader ? (
-            <p className="whitespace-pre-line text-[11px] text-black/90 mt-0.5">
+          <p className="text-[11px] text-black/90 mt-0.5 font-medium">
+            Padanthalmoodu, TVM Main Road
+          </p>
+          {settings.receiptHeader && (
+            <p className="whitespace-pre-line text-[10px] text-black/80 mt-0.5">
               {settings.receiptHeader}
             </p>
-          ) : settings.address ? (
-            <p className="text-[11px] text-black/90 mt-0.5">
-              {settings.address}
-            </p>
-          ) : null}
+          )}
           {settings.phone && (
             <p className="text-[11px]">Tel: {settings.phone}</p>
           )}
