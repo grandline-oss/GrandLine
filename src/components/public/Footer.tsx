@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
-import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Footer() {
   const [settings, setSettings] = useState<RestaurantSettings | null>(null);
@@ -168,7 +167,6 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4">
-            <ThemeToggle variant="pill" />
             <div className="text-stone-400 tracking-wide text-xs">
               Website crafted by{' '}
               <a

@@ -8,8 +8,6 @@ import { getSettings } from '@/lib/storage';
 import { Lock, Mail, ArrowLeft, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
 
-import ThemeToggle from '@/components/ThemeToggle';
-
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,11 +39,6 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0e0d0c] flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-stone-900 dark:text-stone-100 transition-colors">
-      {/* Top right theme toggle */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-        <ThemeToggle variant="icon" />
-      </div>
-
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
         {/* Back to website */}
         <div className="mb-6 flex justify-center">

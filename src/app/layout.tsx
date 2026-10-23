@@ -53,9 +53,9 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var stored = localStorage.getItem('grandline_theme_preference');
-                  var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (stored === 'dark' || (stored !== 'light' && systemDark)) {
+                  localStorage.removeItem('grandline_theme_preference');
+                  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (isDark) {
                     document.documentElement.classList.add('dark');
                     document.documentElement.setAttribute('data-theme', 'dark');
                   } else {

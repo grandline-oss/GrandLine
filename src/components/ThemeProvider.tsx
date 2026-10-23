@@ -2,70 +2,44 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type ThemeMode = 'system' | 'light' | 'dark';
 type ResolvedTheme = 'light' | 'dark';
 
 interface ThemeContextType {
-  theme: ThemeMode;
+  theme: 'system';
   resolvedTheme: ResolvedTheme;
-  setTheme: (theme: ThemeMode) => void;
-  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: 'system',
   resolvedTheme: 'light',
-  setTheme: () => {},
-  toggleTheme: () => {},
 });
 
-const STORAGE_KEY = 'grandline_theme_preference';
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeMode>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY) as ThemeMode | null;
-        if (saved === 'light' || saved === 'dark' || saved === 'system') {
-          return saved;
-        }
-      } catch {
-        // ignore
-      }
-    }
-    return 'system';
-  });
-
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => {
     if (typeof window !== 'undefined') {
       return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     }
     return 'light';
   });
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Synchronize class with resolved theme and listen to OS changes
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Clear any past manual overrides so Chrome / OS appearance strictly governs
+    try {
+      localStorage.removeItem('grandline_theme_preference');
+    } catch {
+      // ignore
+    }
+
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-    const updateResolvedTheme = () => {
-      let active: ResolvedTheme = 'light';
-      if (theme === 'system') {
-        active = mediaQuery.matches ? 'dark' : 'light';
-      } else {
-        active = theme;
-      }
-
+    const applyTheme = (isDark: boolean) => {
+      const active: ResolvedTheme = isDark ? 'dark' : 'light';
       setResolvedTheme(active);
 
       const root = document.documentElement;
-      if (active === 'dark') {
+      if (isDark) {
         root.classList.add('dark');
         root.setAttribute('data-theme', 'dark');
       } else {
@@ -74,45 +48,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    updateResolvedTheme();
+    // Initial check
+    applyTheme(mediaQuery.matches);
 
-    const handleChange = () => {
-      if (theme === 'system') {
-        updateResolvedTheme();
-      }
+    // Live listener for Chrome and OS theme setup changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      applyTheme(e.matches);
     };
 
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
     } else {
-      // Fallback for older Safari/browsers
       mediaQuery.addListener(handleChange);
       return () => mediaQuery.removeListener(handleChange);
     }
-  }, [theme]);
-
-  const setTheme = (newTheme: ThemeMode) => {
-    setThemeState(newTheme);
-    try {
-      if (newTheme === 'system') {
-        localStorage.removeItem(STORAGE_KEY);
-      } else {
-        localStorage.setItem(STORAGE_KEY, newTheme);
-      }
-    } catch {
-      // ignore
-    }
-  };
-
-  const toggleTheme = () => {
-    // If currently dark, switch to light. If currently light, switch to dark.
-    const next = resolvedTheme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-  };
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: 'system', resolvedTheme }}>
       {children}
     </ThemeContext.Provider>
   );
