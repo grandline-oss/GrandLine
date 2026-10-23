@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/lib/auth';
+import FirebaseSyncProvider from '@/components/FirebaseSyncProvider';
 
 export const metadata: Metadata = {
   title: 'GrandLine Fine Dine & Cafe | Artisanal Coastal & Indian Cuisine',
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased scroll-smooth">
       <body className="min-h-full flex flex-col bg-[#faf8f5] text-[#1c1917]">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <FirebaseSyncProvider>{children}</FirebaseSyncProvider>
+        </AuthProvider>
       </body>
     </html>
   );
