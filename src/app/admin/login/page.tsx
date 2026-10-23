@@ -113,14 +113,13 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Quick Info Box for development review */}
+          {/* Security Notice */}
           <div className="mt-6 pt-5 border-t border-stone-800 text-center">
-            <span className="text-[11px] text-stone-400 block font-medium">Default Credentials:</span>
-            <code className="text-[11px] text-amber-400 font-mono bg-stone-950 px-2 py-1 rounded mt-1 inline-block border border-stone-800">
-              admin@grandline.com / admin123
-            </code>
-            <p className="text-[10px] text-stone-500 mt-2">
-              Credentials can be updated at any time in Settings &rarr; Account Settings.
+            <p className="text-[11px] text-stone-500">
+              Authorized restaurant staff and administration only.
+            </p>
+            <p className="text-[10px] text-stone-600 mt-1">
+              Protected by session encryption & rate-limit monitoring.
             </p>
           </div>
         </div>

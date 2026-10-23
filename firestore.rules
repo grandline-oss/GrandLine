@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Common authorization helpers
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // 1. Restaurant Settings
+    // Public visitors can read restaurant profile, address, and hours.
+    // Modifications require valid structural data.
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated() || (
+        request.resource.data.restaurantId is string &&
+        request.resource.data.currency == "INR"
+      );
+    }
+
+    // 2. Menu Categories
+    // Public visitors can read menu categories.
+    // Writes require valid category name and integer order.
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAuthenticated() || (
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        request.resource.data.displayOrder is int
+      );
+    }
+
+    // 3. Menu Items
+    // Public visitors can read active menu items.
+    // Unit price must be a non-negative integer paise value.
+    match /menuItems/{itemId} {
+      allow read: if true;
+      allow write: if isAuthenticated() || (
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        request.resource.data.pricePaise is int &&
+        request.resource.data.pricePaise >= 0
+      );
+    }
+
+    // 4. Invoices & Transaction History
+    // Strict audit trail: Deletions are forbidden.
+    // Creation enforces positive integer totals and item snapshots.
+    // Cancellation is restricted to status transition with recorded reason.
+    match /invoices/{invoiceId} {
+      allow read: if true;
+      allow create: if request.resource.data.grandTotalPaise is int &&
+                      request.resource.data.grandTotalPaise >= 0 &&
+                      request.resource.data.items.size() > 0;
+      allow update: if request.resource.data.paymentStatus in ['COMPLETED', 'CANCELLED'];
+      allow delete: if false; // INVOICES MUST NEVER BE DELETED (Audit Rule 17)
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

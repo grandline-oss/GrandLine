@@ -16,6 +16,7 @@ import {
   FileSpreadsheet,
   AlertCircle,
 } from 'lucide-react';
+import { sanitizeCsvField } from '@/lib/security';
 
 export default function AdminReportsPage() {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -137,18 +138,18 @@ export default function AdminReportsPage() {
       'Tax (INR)',
       'Grand Total (INR)',
       'Status',
-    ];
+    ].map((h) => sanitizeCsvField(h));
 
     const rows = completedInvoices.map((inv) => [
-      inv.invoiceNumber,
-      `"${new Date(inv.createdAt).toLocaleString('en-IN')}"`,
-      inv.items.length,
-      inv.paymentMethod,
-      (inv.subtotalPaise / 100).toFixed(2),
-      (inv.discountPaise / 100).toFixed(2),
-      (inv.taxPaise / 100).toFixed(2),
-      (inv.grandTotalPaise / 100).toFixed(2),
-      inv.paymentStatus,
+      sanitizeCsvField(inv.invoiceNumber),
+      sanitizeCsvField(new Date(inv.createdAt).toLocaleString('en-IN')),
+      sanitizeCsvField(inv.items.length),
+      sanitizeCsvField(inv.paymentMethod),
+      sanitizeCsvField((inv.subtotalPaise / 100).toFixed(2)),
+      sanitizeCsvField((inv.discountPaise / 100).toFixed(2)),
+      sanitizeCsvField((inv.taxPaise / 100).toFixed(2)),
+      sanitizeCsvField((inv.grandTotalPaise / 100).toFixed(2)),
+      sanitizeCsvField(inv.paymentStatus),
     ]);
 
     const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
