@@ -79,6 +79,8 @@ function writeToStorage<T>(key: string, data: T): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(key, JSON.stringify(data));
+    window.dispatchEvent(new Event('storage'));
+    window.dispatchEvent(new CustomEvent('grandline_sync', { detail: { key } }));
   } catch (e) {
     console.error(`Error writing ${key} to storage:`, e);
   }
@@ -377,45 +379,63 @@ export function initFirestoreSync(onUpdate?: () => void): () => void {
 
   try {
     // 1. Listen for settings updates
-    const unsubSettings = onSnapshot(doc(db, 'settings', 'restaurant'), (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data() as RestaurantSettings;
-        writeToStorage(SETTINGS_KEY, data);
-        if (onUpdate) onUpdate();
+    const unsubSettings = onSnapshot(
+      doc(db, 'settings', 'restaurant'),
+      (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data() as RestaurantSettings;
+          writeToStorage(SETTINGS_KEY, data);
+          if (onUpdate) onUpdate();
+        }
+      },
+      (error) => {
+        console.warn('Firestore settings listener error (check rules):', error.message);
       }
-    });
+    );
 
     // 2. Listen for categories
-    const unsubCategories = onSnapshot(collection(db, 'categories'), (snapshot) => {
-      if (!snapshot.empty) {
+    const unsubCategories = onSnapshot(
+      collection(db, 'categories'),
+      (snapshot) => {
         const list: Category[] = [];
         snapshot.forEach((d) => list.push(d.data() as Category));
         list.sort((a, b) => a.displayOrder - b.displayOrder);
         writeToStorage(CATEGORIES_KEY, list);
         if (onUpdate) onUpdate();
+      },
+      (error) => {
+        console.warn('Firestore categories listener error (check rules):', error.message);
       }
-    });
+    );
 
     // 3. Listen for menu items
-    const unsubMenu = onSnapshot(collection(db, 'menuItems'), (snapshot) => {
-      if (!snapshot.empty) {
+    const unsubMenu = onSnapshot(
+      collection(db, 'menuItems'),
+      (snapshot) => {
         const list: MenuItem[] = [];
         snapshot.forEach((d) => list.push(d.data() as MenuItem));
         writeToStorage(MENU_ITEMS_KEY, list);
         if (onUpdate) onUpdate();
+      },
+      (error) => {
+        console.warn('Firestore menu items listener error (check rules):', error.message);
       }
-    });
+    );
 
     // 4. Listen for invoices
-    const unsubInvoices = onSnapshot(collection(db, 'invoices'), (snapshot) => {
-      if (!snapshot.empty) {
+    const unsubInvoices = onSnapshot(
+      collection(db, 'invoices'),
+      (snapshot) => {
         const list: Invoice[] = [];
         snapshot.forEach((d) => list.push(d.data() as Invoice));
         list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         writeToStorage(INVOICES_KEY, list);
         if (onUpdate) onUpdate();
+      },
+      (error) => {
+        console.warn('Firestore invoices listener error (check rules):', error.message);
       }
-    });
+    );
 
     return () => {
       unsubSettings();
