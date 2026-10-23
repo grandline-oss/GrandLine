@@ -399,31 +399,31 @@ export default function AdminBillingPage() {
             )}
           </div>
 
-          {/* Calculations & Direct Checkout (Discount and Cash Received removed per requirement) */}
+          {/* Calculations & Direct Checkout */}
           <div className="pt-4 border-t border-stone-200 space-y-3 mt-4">
-            {/* Subtotal */}
-            <div className="flex items-center justify-between text-xs text-stone-600">
-              <span>Subtotal ({billCalc.items.length} items):</span>
-              <span className="font-semibold font-mono text-stone-900">
-                {formatInr(billCalc.subtotalPaise)}
-              </span>
-            </div>
-
-            {/* Tax breakdown only if explicitly enabled */}
+            {/* If GST is enabled, show Subtotal and GST breakdown */}
             {billCalc.taxEnabled && billCalc.taxPaise > 0 && billCalc.taxBreakdown && (
-              <div className="space-y-1 text-xs text-stone-600 border-t border-dashed border-stone-200 pt-2">
-                <div className="flex items-center justify-between">
-                  <span>CGST ({currentSettings.cgstPercent}%):</span>
-                  <span>{formatInr(billCalc.taxBreakdown.cgstPaise)}</span>
+              <>
+                <div className="flex items-center justify-between text-xs text-stone-600">
+                  <span>Subtotal ({billCalc.items.length} items):</span>
+                  <span className="font-semibold font-mono text-stone-900">
+                    {formatInr(billCalc.subtotalPaise)}
+                  </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span>SGST ({currentSettings.sgstPercent}%):</span>
-                  <span>{formatInr(billCalc.taxBreakdown.sgstPaise)}</span>
+                <div className="space-y-1 text-xs text-stone-600 border-t border-dashed border-stone-200 pt-2">
+                  <div className="flex items-center justify-between">
+                    <span>CGST ({currentSettings.cgstPercent}%):</span>
+                    <span>{formatInr(billCalc.taxBreakdown.cgstPaise)}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>SGST ({currentSettings.sgstPercent}%):</span>
+                    <span>{formatInr(billCalc.taxBreakdown.sgstPaise)}</span>
+                  </div>
                 </div>
-              </div>
+              </>
             )}
 
-            {/* Grand Total */}
+            {/* Grand Total (Only line shown when GST is disabled; final total when GST is enabled) */}
             <div className="flex items-center justify-between pt-2 border-t-2 border-stone-900 text-base font-bold text-stone-900">
               <span>Grand Total:</span>
               <span className="font-serif text-xl text-amber-700">

@@ -145,21 +145,13 @@ export default function ThermalReceipt({
 
         {/* Totals Section */}
         <div className="py-2 border-b border-black border-dashed text-[11px] space-y-1">
-          <div className="flex justify-between">
-            <span>Subtotal:</span>
-            <span className="font-semibold">{formatInr(invoice.subtotalPaise)}</span>
-          </div>
-
-          {invoice.discountPaise > 0 && (
-            <div className="flex justify-between">
-              <span>Discount ({invoice.discountPercent || 0}%):</span>
-              <span>-{formatInr(invoice.discountPaise)}</span>
-            </div>
-          )}
-
-          {/* STRICT: Tax breakdown ONLY rendered if tax was enabled on this invoice */}
+          {/* Subtotal and GST breakdown only rendered if tax is enabled */}
           {invoice.taxPaise > 0 && invoice.taxBreakdown && (
             <>
+              <div className="flex justify-between">
+                <span>Subtotal:</span>
+                <span className="font-semibold">{formatInr(invoice.subtotalPaise)}</span>
+              </div>
               <div className="flex justify-between">
                 <span>CGST:</span>
                 <span>{formatInr(invoice.taxBreakdown.cgstPaise)}</span>
