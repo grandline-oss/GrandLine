@@ -33,7 +33,7 @@ export default function AdminSettingsPage() {
   useEffect(() => {
     const s = getSettings();
     setSettings(s);
-    setAccountEmail(user?.email || 'admin@grandline.com');
+    setAccountEmail(user?.email || 'grandlinecaferestaurant@gmail.com');
   }, [user]);
 
   if (!settings) return null;

@@ -96,7 +96,7 @@ export default function AdminSidebar({
         <div className="px-3 py-2 rounded-xl bg-stone-900/80 border border-stone-800 text-xs">
           <span className="text-stone-400 block text-[11px]">Logged in as</span>
           <span className="text-white font-semibold truncate block">
-            {user?.email || 'admin@grandline.com'}
+            {user?.email || 'grandlinecaferestaurant@gmail.com'}
           </span>
           <span className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">
             {user?.role || 'Administrator'}
