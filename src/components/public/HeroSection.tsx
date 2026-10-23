@@ -10,7 +10,26 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ settings }: HeroSectionProps) {
-  const restaurantName = settings.name || 'GRAND LINE CAFÉ & RESTAURANT';
+  const rawName = (settings.name || 'GRAND LINE CAFÉ & RESTAURANT').trim();
+  let line1 = 'GRAND LINE';
+  let line2 = 'CAFÉ & RESTAURANT';
+
+  if (
+    rawName.toUpperCase().includes('GRAND LINE') &&
+    (rawName.toUpperCase().includes('CAF') || rawName.toUpperCase().includes('REST'))
+  ) {
+    line1 = 'GRAND LINE';
+    const remainder = rawName.replace(/grand\s*line/i, '').trim().replace(/^[-–—:]\s*/, '');
+    line2 = remainder || 'CAFÉ & RESTAURANT';
+  } else if (rawName.includes('&')) {
+    const parts = rawName.split('&');
+    line1 = parts[0].trim();
+    line2 = `& ${parts.slice(1).join('&').trim()}`;
+  } else {
+    line1 = rawName;
+    line2 = '';
+  }
+
   const heroImage =
     settings.heroImageUrl ||
     'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80';
@@ -21,7 +40,7 @@ export default function HeroSection({ settings }: HeroSectionProps) {
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
-          alt={restaurantName}
+          alt={`${line1} ${line2}`}
           className="w-full h-full object-cover object-center brightness-[0.42] scale-105 animate-in fade-in zoom-in-95 duration-1000"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent" />
@@ -36,9 +55,16 @@ export default function HeroSection({ settings }: HeroSectionProps) {
           <span className="tracking-widest uppercase text-xs">{settings.tagline || 'YOUR JOURNEY BEGINS HERE'}</span>
         </div>
 
-        {/* Primary Restaurant Name */}
-        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1] animate-in fade-in slide-in-from-bottom-4 duration-800">
-          {restaurantName}
+        {/* Primary Restaurant Name: Line 1 = GRAND LINE, Line 2 = CAFÉ & RESTAURANT */}
+        <h1 className="font-serif font-extrabold tracking-tight text-white mb-6 leading-none animate-in fade-in slide-in-from-bottom-4 duration-800 flex flex-col items-center">
+          <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wider uppercase drop-shadow-md text-white">
+            {line1}
+          </span>
+          {line2 && (
+            <span className="block text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.2em] sm:tracking-[0.25em] text-amber-400 font-semibold uppercase mt-2 sm:mt-4 drop-shadow-sm">
+              {line2}
+            </span>
+          )}
         </h1>
 
         {/* Introduction / Description */}
