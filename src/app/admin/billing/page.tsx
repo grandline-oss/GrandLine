@@ -233,7 +233,6 @@ export default function AdminBillingPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search menu dishes..."
                 className="w-full pl-9 pr-4 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
@@ -516,7 +515,6 @@ export default function AdminBillingPage() {
                       step="1"
                       value={cashReceivedRupees}
                       onChange={(e) => setCashReceivedRupees(e.target.value)}
-                      placeholder="e.g. 500"
                       className="w-28 px-2 py-1 rounded-lg border border-stone-300 text-right font-mono font-bold text-stone-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
                     />
                   </div>

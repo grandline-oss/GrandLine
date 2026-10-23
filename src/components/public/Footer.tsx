@@ -31,10 +31,11 @@ export default function Footer() {
                 {restaurantName}
               </span>
             </div>
-            <p className="text-sm text-stone-400 leading-relaxed">
-              {settings?.tagline || 'Artisanal Flavors & Authentic Hospitality'}.{' '}
-              {settings?.description?.slice(0, 130)}...
-            </p>
+            {settings?.tagline && (
+              <p className="text-sm text-stone-400 leading-relaxed">
+                {settings.tagline}
+              </p>
+            )}
             <div className="pt-2">
               <Link
                 href="/menu"
@@ -122,13 +123,17 @@ export default function Footer() {
               Service Hours
             </h4>
             <div className="space-y-3 text-sm text-stone-400">
-              <div className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-amber-500 shrink-0 mt-1" />
-                <div>
-                  <span className="text-stone-200 block font-medium">Dine-in & Takeaway</span>
-                  <span>{settings?.openingHours || 'Daily: 11:30 AM – 11:30 PM'}</span>
+              {settings?.openingHours ? (
+                <div className="flex items-start gap-3">
+                  <Clock className="w-4 h-4 text-amber-500 shrink-0 mt-1" />
+                  <div>
+                    <span className="text-stone-200 block font-medium">Dine-in & Takeaway</span>
+                    <span>{settings.openingHours}</span>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <p className="text-xs text-stone-500">Service hours to be announced.</p>
+              )}
               <p className="text-xs text-stone-500 pt-2 border-t border-stone-800">
                 Freshly prepared per order. Table reservations recommended for weekend dinners.
               </p>

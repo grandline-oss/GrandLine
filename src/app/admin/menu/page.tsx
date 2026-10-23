@@ -105,7 +105,7 @@ export default function AdminMenuPage() {
         categoryId: categories[0]?.id || '',
         description: '',
         priceRupees: '',
-        imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+        imageUrl: '',
         isAvailable: true,
         isFeatured: false,
         isVeg: true,
@@ -321,7 +321,6 @@ export default function AdminMenuPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search dish or price..."
                 className="w-full pl-9 pr-4 py-1.5 rounded-xl border border-stone-200 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
@@ -568,7 +567,6 @@ export default function AdminMenuPage() {
                   required
                   value={itemForm.name}
                   onChange={(e) => setItemForm({ ...itemForm, name: e.target.value })}
-                  placeholder="e.g. Malabar Pepper Crab Fry"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -602,7 +600,6 @@ export default function AdminMenuPage() {
                     required
                     value={itemForm.priceRupees}
                     onChange={(e) => setItemForm({ ...itemForm, priceRupees: e.target.value })}
-                    placeholder="e.g. 350.00"
                     className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                   />
                 </div>
@@ -616,7 +613,6 @@ export default function AdminMenuPage() {
                   rows={3}
                   value={itemForm.description}
                   onChange={(e) => setItemForm({ ...itemForm, description: e.target.value })}
-                  placeholder="Ingredients, preparation style, allergen notes..."
                   className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -629,7 +625,6 @@ export default function AdminMenuPage() {
                   type="url"
                   value={itemForm.imageUrl}
                   onChange={(e) => setItemForm({ ...itemForm, imageUrl: e.target.value })}
-                  placeholder="https://images.unsplash.com/..."
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -720,7 +715,6 @@ export default function AdminMenuPage() {
                   required
                   value={catForm.name}
                   onChange={(e) => setCatForm({ ...catForm, name: e.target.value })}
-                  placeholder="e.g. Seafood Delicacies"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>

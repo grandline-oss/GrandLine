@@ -170,7 +170,6 @@ export default function AdminSettingsPage() {
                   required
                   value={settings.name}
                   onChange={(e) => setSettings({ ...settings, name: e.target.value })}
-                  placeholder="e.g. GrandLine Fine Dine & Cafe"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -183,7 +182,6 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.tagline}
                   onChange={(e) => setSettings({ ...settings, tagline: e.target.value })}
-                  placeholder="e.g. Artisanal Flavors & Authentic Hospitality"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -221,7 +219,6 @@ export default function AdminSettingsPage() {
                 type="url"
                 value={settings.heroImageUrl}
                 onChange={(e) => setSettings({ ...settings, heroImageUrl: e.target.value })}
-                placeholder="https://images.unsplash.com/..."
                 className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
@@ -242,7 +239,6 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.phone}
                   onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                  placeholder="+91 98765 43210"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -255,7 +251,6 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.whatsapp}
                   onChange={(e) => setSettings({ ...settings, whatsapp: e.target.value })}
-                  placeholder="+91 98765 43210"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -268,7 +263,6 @@ export default function AdminSettingsPage() {
                   type="email"
                   value={settings.email}
                   onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                  placeholder="dine@grandline.com"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -281,7 +275,6 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.openingHours}
                   onChange={(e) => setSettings({ ...settings, openingHours: e.target.value })}
-                  placeholder="Daily: 11:30 AM – 11:30 PM"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
@@ -307,7 +300,6 @@ export default function AdminSettingsPage() {
                 type="url"
                 value={settings.googleMapsUrl}
                 onChange={(e) => setSettings({ ...settings, googleMapsUrl: e.target.value })}
-                placeholder="https://maps.google.com/?q=..."
                 className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
@@ -410,7 +402,6 @@ export default function AdminSettingsPage() {
                       type="text"
                       value={settings.gstin}
                       onChange={(e) => setSettings({ ...settings, gstin: e.target.value })}
-                      placeholder="e.g. 32AAAAA0000A1Z5"
                       className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm"
                     />
                   </div>
@@ -461,7 +452,6 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.invoicePrefix}
                   onChange={(e) => setSettings({ ...settings, invoicePrefix: e.target.value })}
-                  placeholder="e.g. GL- or INV-"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
                 />
               </div>
@@ -475,7 +465,6 @@ export default function AdminSettingsPage() {
                 rows={2}
                 value={settings.receiptHeader}
                 onChange={(e) => setSettings({ ...settings, receiptHeader: e.target.value })}
-                placeholder="GRANDLINE DINE & CAFE\nMarine Drive, Kochi"
                 className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm font-mono text-xs"
               />
             </div>
@@ -488,7 +477,6 @@ export default function AdminSettingsPage() {
                 rows={2}
                 value={settings.receiptFooter}
                 onChange={(e) => setSettings({ ...settings, receiptFooter: e.target.value })}
-                placeholder="Thank you for dining with GrandLine!\nPlease visit again."
                 className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm font-mono text-xs"
               />
             </div>
@@ -559,7 +547,6 @@ export default function AdminSettingsPage() {
                 required
                 value={newPass}
                 onChange={(e) => setNewPass(e.target.value)}
-                placeholder="At least 6 characters"
                 className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
               />
             </div>
@@ -573,7 +560,6 @@ export default function AdminSettingsPage() {
                 required
                 value={confirmPass}
                 onChange={(e) => setConfirmPass(e.target.value)}
-                placeholder="Re-type new password"
                 className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
               />
             </div>

@@ -143,7 +143,6 @@ export default function AdminBillingHistoryPage() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              placeholder="Search by Bill # or dish..."
               className="w-full pl-9 pr-4 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
             />
           </div>
@@ -372,7 +371,6 @@ export default function AdminBillingHistoryPage() {
                 required
                 value={cancellationReason}
                 onChange={(e) => setCancellationReason(e.target.value)}
-                placeholder="e.g. Guest changed mind, incorrect table billed, cashier re-entry..."
                 className="w-full px-3 py-2 rounded-xl border border-stone-200 text-xs focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500"
               />
             </div>

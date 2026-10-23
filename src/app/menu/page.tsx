@@ -112,7 +112,6 @@ export default function MenuPage() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search dishes or ingredients..."
                     className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                   />
                   {searchQuery && (
@@ -182,21 +181,27 @@ export default function MenuPage() {
               <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4">
                 <Utensils className="w-6 h-6" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-stone-900 mb-2">No Dishes Match Your Selection</h3>
+              <h3 className="font-serif text-xl font-bold text-stone-900 mb-2">
+                {menuItems.length === 0 ? 'Menu is Currently Being Updated' : 'No Dishes Match Your Selection'}
+              </h3>
               <p className="text-stone-600 text-sm mb-6">
-                Try adjusting your search terms or clearing the active category and dietary filters.
+                {menuItems.length === 0
+                  ? 'Our chef and management team are currently curating the dishes. Please check back shortly!'
+                  : 'Try adjusting your search terms or clearing the active category and dietary filters.'}
               </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedCategory('all');
-                  setDietFilter('all');
-                  setSearchQuery('');
-                }}
-                className="px-5 py-2.5 rounded-xl bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors"
-              >
-                Reset All Filters
-              </button>
+              {menuItems.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory('all');
+                    setDietFilter('all');
+                    setSearchQuery('');
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors"
+                >
+                  Reset All Filters
+                </button>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

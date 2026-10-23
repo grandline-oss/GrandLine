@@ -171,14 +171,18 @@ export default function HomePage() {
                   Whether you are planning a relaxed family feast, an intimate evening, or a celebratory gathering, our doors are open to welcome you.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-2 text-xs sm:text-sm text-stone-300">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>{settings.openingHours}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>{settings.address?.split(',')[0]}</span>
-                  </div>
+                  {settings.openingHours && (
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span>{settings.openingHours}</span>
+                    </div>
+                  )}
+                  {settings.address && (
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span>{settings.address.split(',')[0]}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 

@@ -68,11 +68,15 @@ export default function HeroSection({ settings }: HeroSectionProps) {
 
         {/* Service Hours Strip */}
         <div className="mt-14 pt-8 border-t border-stone-800/80 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-stone-400">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Open Today: {settings.openingHours?.split(':')[1] ? settings.openingHours : '11:30 AM – 11:30 PM'}</span>
-          </div>
-          <div className="hidden sm:block text-stone-700">•</div>
+          {settings.openingHours && (
+            <>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Open Today: {settings.openingHours}</span>
+              </div>
+              <div className="hidden sm:block text-stone-700">•</div>
+            </>
+          )}
           <div>Dine-in & Quick Takeaway</div>
           <div className="hidden sm:block text-stone-700">•</div>
           <div>Fresh Handcrafted Daily</div>
