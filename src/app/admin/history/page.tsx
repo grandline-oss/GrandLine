@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { getInvoices, cancelInvoice, deleteInvoice, getSettings } from '@/lib/storage';
+import { getInvoices, cancelInvoice, deleteInvoice, deleteInvoiceAsync, getSettings } from '@/lib/storage';
 import { Invoice, RestaurantSettings } from '@/lib/types';
 import { formatInr } from '@/lib/currency';
 import ThermalReceipt from '@/components/billing/ThermalReceipt';
@@ -117,11 +117,11 @@ export default function AdminBillingHistoryPage() {
     }
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!deletingInvoice) return;
     setIsDeleting(true);
     try {
-      deleteInvoice(deletingInvoice.id);
+      await deleteInvoiceAsync(deletingInvoice.id);
       loadData();
       setDeleteSuccessMsg(`Bill ${deletingInvoice.invoiceNumber} permanently deleted.`);
       setTimeout(() => setDeleteSuccessMsg(null), 4000);

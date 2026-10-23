@@ -16,12 +16,15 @@ import {
   getDocs,
   deleteDoc,
   onSnapshot,
+  query,
+  where,
 } from 'firebase/firestore';
 
 const SETTINGS_KEY = 'grandline_restaurant_settings_v2';
 const CATEGORIES_KEY = 'grandline_restaurant_categories_v2';
 const MENU_ITEMS_KEY = 'grandline_restaurant_menu_items_v2';
 const INVOICES_KEY = 'grandline_restaurant_invoices_v2';
+const DELETED_INVOICES_KEY = 'grandline_deleted_invoices_v1';
 
 export const DEFAULT_SETTINGS: RestaurantSettings = {
   restaurantId: 'grandline_main',
@@ -248,8 +251,28 @@ export function deleteMenuItem(id: string): void {
 }
 
 // ---------------- INVOICES & BILLING ----------------
+export function getDeletedInvoiceIds(): Set<string> {
+  const raw = readFromStorage<string[]>(DELETED_INVOICES_KEY, []);
+  return new Set(raw.map((id) => String(id).trim()));
+}
+
+export function markInvoiceAsDeleted(id: string, invoiceNumber?: string): void {
+  const current = readFromStorage<string[]>(DELETED_INVOICES_KEY, []);
+  const set = new Set(current);
+  if (id) set.add(String(id).trim());
+  if (invoiceNumber) set.add(String(invoiceNumber).trim());
+  writeToStorage(DELETED_INVOICES_KEY, Array.from(set));
+}
+
 export function getInvoices(): Invoice[] {
-  return readFromStorage<Invoice[]>(INVOICES_KEY, DEFAULT_INVOICES);
+  const all = readFromStorage<Invoice[]>(INVOICES_KEY, DEFAULT_INVOICES);
+  const deletedSet = getDeletedInvoiceIds();
+  return all.filter(
+    (inv) =>
+      !inv.isDeleted &&
+      !deletedSet.has(inv.id) &&
+      !deletedSet.has(inv.invoiceNumber)
+  );
 }
 
 export function getInvoiceById(id: string): Invoice | null {
@@ -410,23 +433,95 @@ export function cancelInvoice(invoiceId: string, reason: string): Invoice | null
   return updated;
 }
 
-export function deleteInvoice(invoiceId: string): boolean {
-  const invoices = getInvoices();
-  const target = invoices.find((i) => i.id === invoiceId || i.invoiceNumber === invoiceId);
+export async function deleteInvoiceAsync(invoiceId: string): Promise<boolean> {
+  const allInvoices = readFromStorage<Invoice[]>(INVOICES_KEY, DEFAULT_INVOICES);
+  const target = allInvoices.find((i) => i.id === invoiceId || i.invoiceNumber === invoiceId);
   const targetId = target ? target.id : invoiceId;
+  const targetNumber = target ? target.invoiceNumber : invoiceId;
 
-  const filtered = invoices.filter((i) => i.id !== targetId && i.invoiceNumber !== targetId);
+  // 1. Immediately register in the persistent deleted registry
+  markInvoiceAsDeleted(targetId, targetNumber);
+  markInvoiceAsDeleted(invoiceId);
+
+  // 2. Remove from local storage array immediately
+  const filtered = allInvoices.filter(
+    (i) =>
+      i.id !== targetId &&
+      i.invoiceNumber !== targetNumber &&
+      i.id !== invoiceId &&
+      i.invoiceNumber !== invoiceId
+  );
   writeToStorage(INVOICES_KEY, filtered);
 
+  // 3. Delete / tombstone from Firestore cloud
   if (db) {
     try {
-      const docRef = doc(db, 'invoices', targetId);
-      deleteDoc(docRef).catch((err) => console.warn('Firestore invoice delete warning:', err));
+      const tombstoneData = {
+        isDeleted: true,
+        paymentStatus: 'CANCELLED',
+        cancellationReason: 'DELETED_BY_ADMIN',
+        deletedAt: new Date().toISOString(),
+      };
+
+      const ref1 = doc(db, 'invoices', targetId);
+      const ref2 = doc(db, 'invoices', targetNumber);
+      const ref3 = doc(db, 'invoices', invoiceId);
+
+      // Direct deletions and tombstone fallbacks
+      await Promise.allSettled([
+        deleteDoc(ref1),
+        deleteDoc(ref2),
+        deleteDoc(ref3),
+        setDoc(ref1, tombstoneData, { merge: true }),
+        setDoc(ref2, tombstoneData, { merge: true }),
+        setDoc(ref3, tombstoneData, { merge: true }),
+      ]);
+
+      // Query any docs in invoices collection that match id or invoiceNumber
+      try {
+        const col = collection(db, 'invoices');
+        const [snap1, snap2] = await Promise.all([
+          getDocs(query(col, where('invoiceNumber', '==', targetNumber))),
+          getDocs(query(col, where('id', '==', targetId))),
+        ]);
+
+        const docsToDelete = [...snap1.docs, ...snap2.docs];
+        for (const d of docsToDelete) {
+          try {
+            await deleteDoc(d.ref);
+          } catch {
+            await setDoc(d.ref, tombstoneData, { merge: true }).catch(() => {});
+          }
+        }
+      } catch (qErr) {
+        console.warn('Firestore query-based delete warning:', qErr);
+      }
+
+      // Record in cloud deleted_invoices collection for cross-device sync
+      try {
+        const delRef = doc(db, 'deleted_invoices', targetNumber || targetId);
+        await setDoc(
+          delRef,
+          {
+            id: targetId,
+            invoiceNumber: targetNumber,
+            deletedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+      } catch (delErr) {
+        console.warn('Firestore deleted_invoices write warning:', delErr);
+      }
     } catch (e) {
       console.warn('Firestore invoice delete error:', e);
     }
   }
 
+  return true;
+}
+
+export function deleteInvoice(invoiceId: string): boolean {
+  deleteInvoiceAsync(invoiceId);
   return true;
 }
 
@@ -485,8 +580,28 @@ export function initFirestoreSync(onUpdate?: () => void): () => void {
     const unsubInvoices = onSnapshot(
       collection(db, 'invoices'),
       (snapshot) => {
+        const deletedSet = getDeletedInvoiceIds();
         const list: Invoice[] = [];
-        snapshot.forEach((d) => list.push(d.data() as Invoice));
+
+        snapshot.forEach((d) => {
+          const inv = d.data() as Invoice & { isDeleted?: boolean };
+          const invId = inv.id || d.id;
+          const invNum = inv.invoiceNumber || '';
+
+          // If marked deleted or exists in persistent deleted registry, skip & purge!
+          if (
+            inv.isDeleted ||
+            deletedSet.has(invId) ||
+            deletedSet.has(invNum) ||
+            deletedSet.has(d.id)
+          ) {
+            deleteDoc(d.ref).catch(() => {});
+            return;
+          }
+
+          list.push({ ...inv, id: invId });
+        });
+
         list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         writeToStorage(INVOICES_KEY, list);
         if (onUpdate) onUpdate();
@@ -496,11 +611,41 @@ export function initFirestoreSync(onUpdate?: () => void): () => void {
       }
     );
 
+    // 5. Listen for deleted_invoices in Firestore (cross-device sync)
+    const unsubDeletedInvoices = onSnapshot(
+      collection(db, 'deleted_invoices'),
+      (snapshot) => {
+        let changed = false;
+        snapshot.forEach((d) => {
+          const data = d.data();
+          const id = data.id || d.id;
+          const num = data.invoiceNumber || '';
+          if (id || num) {
+            markInvoiceAsDeleted(id, num);
+            changed = true;
+          }
+        });
+        if (changed) {
+          const current = readFromStorage<Invoice[]>(INVOICES_KEY, DEFAULT_INVOICES);
+          const delSet = getDeletedInvoiceIds();
+          const clean = current.filter(
+            (i) => !i.isDeleted && !delSet.has(i.id) && !delSet.has(i.invoiceNumber)
+          );
+          writeToStorage(INVOICES_KEY, clean);
+          if (onUpdate) onUpdate();
+        }
+      },
+      (error) => {
+        console.warn('Firestore deleted_invoices listener error:', error.message);
+      }
+    );
+
     return () => {
       unsubSettings();
       unsubCategories();
       unsubMenu();
       unsubInvoices();
+      unsubDeletedInvoices();
     };
   } catch (e) {
     console.warn('Firestore real-time listeners initialization error:', e);

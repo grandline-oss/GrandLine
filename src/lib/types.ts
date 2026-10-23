@@ -86,6 +86,8 @@ export interface Invoice {
   cancellationReason?: string;
   cancelledAt?: string;
   cashierName?: string;
+  isDeleted?: boolean;
+  deletedAt?: string;
 }
 
 export interface AdminUser {
