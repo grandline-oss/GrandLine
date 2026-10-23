@@ -451,7 +451,7 @@ export default function AdminSettingsPage() {
                 <input
                   type="text"
                   readOnly
-                  value="GL-MMYY-0001 (Sequential Auto-Generated)"
+                  value="GL-MM/YY-0001 (Sequential Auto-Generated, Monthly Reset)"
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm bg-stone-50 text-stone-700 font-mono text-xs cursor-not-allowed"
                 />
               </div>

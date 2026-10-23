@@ -269,15 +269,16 @@ export interface CreateInvoiceParams {
 }
 
 /**
- * Automatically generates a sequential, unique bill number in the format: GL-MMYY-0001
- * E.g., GL-1026-0001 for October 2026.
+ * Automatically generates a sequential, unique bill number in the format: GL-MM/YY-0001
+ * E.g., GL-10/26-0001 for October 2026.
+ * The sequence increments automatically for each bill and resets monthly.
  * Guarantees that issued bill numbers are never duplicated or reused.
  */
 export function generateNextInvoiceNumber(existingInvoices: Invoice[]): string {
   const now = new Date();
   const mm = String(now.getMonth() + 1).padStart(2, '0');
   const yy = String(now.getFullYear()).slice(-2);
-  const prefix = `GL-${mm}${yy}-`;
+  const prefix = `GL-${mm}/${yy}-`;
 
   let maxSeq = 0;
   for (const inv of existingInvoices) {
