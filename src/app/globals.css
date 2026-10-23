@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, .dark, .dark *));
-
 @layer base {
   :root {
     --background: #faf8f5;
@@ -15,6 +13,22 @@
     --muted: #78716c;
     --border: #e7e5e4;
     color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #121214;
+      --foreground: #f4f4f5;
+      --card: #18181b;
+      --card-foreground: #f4f4f5;
+      --primary: #f59e0b;
+      --primary-hover: #fbbf24;
+      --secondary: #e4e4e7;
+      --accent: #d97706;
+      --muted: #a1a1aa;
+      --border: #27272a;
+      color-scheme: dark;
+    }
   }
 
   .dark {
