@@ -1,19 +1,31 @@
 import React from 'react';
 import Link from 'next/link';
-import { UtensilsCrossed, ArrowLeft, BookOpen, Compass } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, BookOpen } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#faf8f5] text-stone-900 flex flex-col justify-between">
       {/* Minimal Top Brand Bar */}
       <header className="p-6 max-w-7xl mx-auto w-full flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-amber-600 flex items-center justify-center text-white">
-            <UtensilsCrossed className="w-5 h-5" />
+        <Link href="/" className="flex items-center gap-3">
+          <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-amber-500/40 bg-black shrink-0 shadow-sm">
+            <Image
+              src="/brand/grand-line-logo.jpg"
+              alt="GRAND LINE CAFÉ & RESTAURANT"
+              width={40}
+              height={40}
+              className="object-cover w-full h-full"
+            />
           </div>
-          <span className="font-serif text-xl font-bold tracking-tight text-stone-950">
-            GrandLine
-          </span>
+          <div>
+            <span className="font-serif text-lg font-bold tracking-wider text-stone-950 uppercase block leading-none">
+              GRAND LINE
+            </span>
+            <span className="text-[10px] uppercase tracking-widest text-amber-700 font-semibold block">
+              Café & Restaurant
+            </span>
+          </div>
         </Link>
         <Link
           href="/menu"
@@ -26,8 +38,14 @@ export default function NotFound() {
       {/* Main 404 Content */}
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-md w-full text-center space-y-6">
-          <div className="w-16 h-16 rounded-3xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-inner">
-            <Compass className="w-8 h-8" />
+          <div className="relative w-20 h-20 rounded-2xl overflow-hidden border border-amber-500/40 mx-auto shadow-xl bg-black">
+            <Image
+              src="/brand/grand-line-logo.jpg"
+              alt="GRAND LINE CAFÉ & RESTAURANT"
+              width={80}
+              height={80}
+              className="object-cover w-full h-full"
+            />
           </div>
 
           <div className="space-y-2">

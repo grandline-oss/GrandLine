@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { UtensilsCrossed, MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
 
@@ -15,21 +16,33 @@ export default function Footer() {
     setCurrentYear(new Date().getFullYear());
   }, []);
 
-  const restaurantName = settings?.name || 'GrandLine Fine Dine & Cafe';
+  const restaurantName = settings?.name || 'GRAND LINE CAFÉ & RESTAURANT';
+  const logoSrc = settings?.logoUrl || '/brand/grand-line-logo.jpg';
 
   return (
-    <footer className="bg-[#121110] text-stone-300 border-t border-stone-800 pt-16 pb-8">
+    <footer className="bg-[#0e0d0c] text-stone-300 border-t border-amber-900/40 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-stone-800/80">
-          {/* Column 1: Restaurant Identity */}
+          {/* Column 1: Official Restaurant Identity */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-amber-600 flex items-center justify-center text-white">
-                <UtensilsCrossed className="w-5 h-5" />
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-amber-500/40 shadow-lg shadow-black/80 shrink-0 bg-black">
+                <Image
+                  src={logoSrc}
+                  alt={restaurantName}
+                  width={56}
+                  height={56}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <span className="font-serif text-2xl font-bold tracking-tight text-white">
-                {restaurantName}
-              </span>
+              <div>
+                <span className="font-serif text-xl font-bold tracking-wider text-white block uppercase leading-tight">
+                  GRAND LINE
+                </span>
+                <span className="text-[10px] uppercase tracking-widest text-amber-400 font-semibold block">
+                  Café & Restaurant
+                </span>
+              </div>
             </div>
             {settings?.tagline && (
               <p className="text-sm text-stone-400 leading-relaxed">

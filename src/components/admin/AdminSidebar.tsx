@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -46,15 +47,21 @@ export default function AdminSidebar({
       <div>
         <div className="p-6 border-b border-stone-800">
           <Link href="/admin" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-600 flex items-center justify-center text-white font-bold">
-              <Receipt className="w-5 h-5" />
+            <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-amber-500/40 bg-black shrink-0 shadow-md">
+              <Image
+                src={settings.logoUrl || '/brand/grand-line-logo.jpg'}
+                alt="GRAND LINE CAFÉ & RESTAURANT"
+                width={44}
+                height={44}
+                className="object-cover w-full h-full"
+              />
             </div>
             <div className="overflow-hidden">
-              <h1 className="font-serif text-lg font-bold text-white truncate">
-                {settings.name || 'GrandLine Dine'}
+              <h1 className="font-serif text-base font-bold text-white truncate uppercase tracking-wide">
+                GRAND LINE
               </h1>
-              <span className="text-[11px] uppercase tracking-wider text-amber-500 font-semibold block">
-                Management System
+              <span className="text-[10px] uppercase tracking-wider text-amber-400 font-semibold block truncate">
+                Café & Restaurant POS
               </span>
             </div>
           </Link>

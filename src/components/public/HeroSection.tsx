@@ -10,7 +10,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ settings }: HeroSectionProps) {
-  const restaurantName = settings.name || 'GrandLine Fine Dine & Cafe';
+  const restaurantName = settings.name || 'GRAND LINE CAFÉ & RESTAURANT';
   const heroImage =
     settings.heroImageUrl ||
     'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80';
@@ -33,7 +33,7 @@ export default function HeroSection({ settings }: HeroSectionProps) {
         {/* Subtle Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium mb-6 backdrop-blur-md animate-in fade-in slide-in-from-bottom-2 duration-700">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          <span>{settings.tagline || 'Artisanal Flavors & Authentic Hospitality'}</span>
+          <span className="tracking-widest uppercase text-xs">{settings.tagline || 'YOUR JOURNEY BEGINS HERE'}</span>
         </div>
 
         {/* Primary Restaurant Name */}

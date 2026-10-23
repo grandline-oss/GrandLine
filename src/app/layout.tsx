@@ -5,14 +5,39 @@ import FirebaseSyncProvider from '@/components/FirebaseSyncProvider';
 import CookieBanner from '@/components/public/CookieBanner';
 
 export const metadata: Metadata = {
-  title: 'GrandLine Fine Dine & Cafe | Artisanal Coastal & Indian Cuisine',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://grand-line-red.vercel.app'),
+  title: 'GRAND LINE CAFÉ & RESTAURANT | Your Journey Begins Here',
   description:
-    'Experience handcrafted regional dishes, fresh coastal seafood, clay-oven tandoor specialties, and artisan coolers in an inviting fine-dining ambiance.',
-  keywords: ['restaurant', 'fine dine', 'coastal seafood', 'biryani', 'tandoori', 'kochi dining', 'food menu'],
+    'Official website of GRAND LINE CAFÉ & RESTAURANT. Your journey begins here with artisanal culinary craftsmanship, authentic coastal delicacies, clay-oven tandoor specialties, and handcrafted cafe coolers.',
+  keywords: [
+    'GRAND LINE',
+    'Grand Line Cafe',
+    'Grand Line Restaurant',
+    'fine dining',
+    'coastal seafood',
+    'cafe',
+    'artisanal cuisine',
+    'tandoor',
+    'biryani',
+    'Kochi dining',
+  ],
+  icons: {
+    icon: '/brand/grand-line-logo.jpg',
+    shortcut: '/brand/grand-line-logo.jpg',
+    apple: '/brand/grand-line-logo.jpg',
+  },
   openGraph: {
-    title: 'GrandLine Fine Dine & Cafe',
-    description: 'Artisanal Flavors & Authentic Hospitality',
+    title: 'GRAND LINE CAFÉ & RESTAURANT',
+    description: 'Your Journey Begins Here • Artisanal Flavors & Authentic Hospitality',
     type: 'website',
+    images: [
+      {
+        url: '/brand/og-image.jpg',
+        width: 1024,
+        height: 1024,
+        alt: 'GRAND LINE CAFÉ & RESTAURANT',
+      },
+    ],
   },
 };
 

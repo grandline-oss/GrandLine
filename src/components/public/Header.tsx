@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, UtensilsCrossed, Shield } from 'lucide-react';
+import { Menu, X, Phone, Shield } from 'lucide-react';
 import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
 
@@ -23,23 +24,30 @@ export default function Header() {
     { name: 'Contact', href: '/contact' },
   ];
 
-  const restaurantName = settings?.name || 'GrandLine Fine Dine & Cafe';
+  const logoSrc = settings?.logoUrl || '/brand/grand-line-logo.jpg';
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#1c1917]/95 backdrop-blur-md border-b border-stone-800 text-stone-100 transition-all">
+    <header className="sticky top-0 z-40 w-full bg-[#121110]/95 backdrop-blur-md border-b border-amber-900/30 text-stone-100 transition-all shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Restaurant Brand Identity */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white shadow-md shadow-orange-950/40 group-hover:scale-105 transition-transform">
-              <UtensilsCrossed className="w-5 h-5" />
+        <div className="flex items-center justify-between h-20 sm:h-22">
+          {/* Official Restaurant Brand Identity */}
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-amber-500/40 shadow-lg shadow-black/80 shrink-0 bg-black group-hover:border-amber-400 group-hover:shadow-amber-500/20 transition-all">
+              <Image
+                src={logoSrc}
+                alt="GRAND LINE CAFÉ & RESTAURANT"
+                width={56}
+                height={56}
+                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                priority
+              />
             </div>
             <div>
-              <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white block leading-tight group-hover:text-amber-400 transition-colors">
-                {restaurantName}
+              <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-white block leading-tight group-hover:text-amber-400 transition-colors uppercase">
+                GRAND LINE
               </span>
-              <span className="text-xs uppercase tracking-widest text-amber-500/90 font-medium block">
-                {settings?.tagline || 'Artisanal Flavors'}
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-semibold block">
+                Café & Restaurant
               </span>
             </div>
           </Link>

@@ -8,6 +8,7 @@ import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
 import { Menu, Receipt, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AdminLayout({
   children,
@@ -63,7 +64,7 @@ export default function AdminLayout({
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Mobile / Screen Header (hidden when printing) */}
         <header className="lg:hidden no-print sticky top-0 z-30 bg-stone-950 text-white px-4 py-3 flex items-center justify-between border-b border-stone-800">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
@@ -72,8 +73,17 @@ export default function AdminLayout({
             >
               <Menu className="w-5 h-5" />
             </button>
-            <span className="font-serif font-bold text-sm text-white truncate max-w-[180px]">
-              {currentSettings.name}
+            <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-amber-500/30 bg-black shrink-0">
+              <Image
+                src="/brand/grand-line-logo.jpg"
+                alt="GRAND LINE"
+                width={28}
+                height={28}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <span className="font-serif font-bold text-sm text-white truncate max-w-[170px] uppercase tracking-wide">
+              GRAND LINE
             </span>
           </div>
 

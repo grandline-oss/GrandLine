@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
 import { getSettings } from '@/lib/storage';
-import { UtensilsCrossed, Lock, Mail, ArrowLeft, ShieldAlert } from 'lucide-react';
+import { Lock, Mail, ArrowLeft, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminLoginPage() {
@@ -15,6 +16,7 @@ export default function AdminLoginPage() {
   const { login } = useAuth();
   const router = useRouter();
   const settings = getSettings();
+  const logoSrc = settings.logoUrl || '/brand/grand-line-logo.jpg';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +38,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-stone-100">
+    <div className="min-h-screen bg-[#0e0d0c] flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-stone-100">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
         {/* Back to website */}
         <div className="mb-6 flex justify-center">
@@ -49,16 +51,23 @@ export default function AdminLoginPage() {
           </Link>
         </div>
 
-        {/* Restaurant Brand Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-amber-600 mx-auto flex items-center justify-center text-white shadow-xl shadow-amber-950/50 mb-4">
-          <UtensilsCrossed className="w-7 h-7" />
+        {/* Official Restaurant Brand Logo */}
+        <div className="w-20 h-20 rounded-2xl overflow-hidden border border-amber-500/40 mx-auto shadow-2xl shadow-black mb-4 bg-black">
+          <Image
+            src={logoSrc}
+            alt="GRAND LINE CAFÉ & RESTAURANT"
+            width={80}
+            height={80}
+            className="object-cover w-full h-full"
+            priority
+          />
         </div>
 
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-white">
-          {settings.name}
+        <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-white uppercase">
+          GRAND LINE
         </h1>
-        <p className="mt-1 text-xs uppercase tracking-widest text-amber-500 font-semibold">
-          Management & POS Billing Portal
+        <p className="mt-1 text-xs uppercase tracking-widest text-amber-400 font-semibold">
+          Café & Restaurant &bull; POS & Management
         </p>
       </div>
 

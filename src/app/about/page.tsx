@@ -15,7 +15,7 @@ export default function AboutPage() {
     setSettings(getSettings());
   }, []);
 
-  const restaurantName = settings?.name || 'GrandLine Fine Dine & Cafe';
+  const restaurantName = settings?.name || 'GRAND LINE CAFÉ & RESTAURANT';
 
   return (
     <div className="min-h-screen flex flex-col bg-[#faf8f5]">
@@ -32,7 +32,7 @@ export default function AboutPage() {
               The Story of {restaurantName}
             </h1>
             <p className="text-stone-300 text-base sm:text-lg leading-relaxed font-light">
-              {settings?.tagline || 'Artisanal Flavors & Authentic Hospitality'}
+              {settings?.tagline || 'YOUR JOURNEY BEGINS HERE'}
             </p>
           </div>
         </section>
