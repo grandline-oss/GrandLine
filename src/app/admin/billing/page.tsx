@@ -8,7 +8,7 @@ import {
   createInvoice,
 } from '@/lib/storage';
 import { Category, MenuItem, RestaurantSettings, Invoice, PaymentMethod } from '@/lib/types';
-import { calculateBill, formatInr, rupeesToPaise } from '@/lib/currency';
+import { calculateBill, formatInr } from '@/lib/currency';
 import ThermalReceipt from '@/components/billing/ThermalReceipt';
 import {
   Search,
@@ -39,15 +39,13 @@ export default function AdminBillingPage() {
   const [selectedCat, setSelectedCat] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [discountPercent, setDiscountPercent] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CASH');
-  const [cashReceivedRupees, setCashReceivedRupees] = useState<string>('');
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  // Completed Invoice State for Receipt Printing
+  // Completed Invoice for direct printing
   const [completedInvoice, setCompletedInvoice] = useState<Invoice | null>(null);
-  const [showReceiptModal, setShowReceiptModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCategories(getCategories().filter((c) => c.isActive));
@@ -101,13 +99,11 @@ export default function AdminBillingPage() {
   const clearCart = () => {
     if (cart.length > 0 && confirm('Clear all items from current bill?')) {
       setCart([]);
-      setDiscountPercent(0);
-      setCashReceivedRupees('');
       setErrorMsg(null);
     }
   };
 
-  // Bill Calculations via integer paise math
+  // Bill Calculations via integer paise math (Zero discount)
   const currentSettings = settings || getSettings();
   const calculationItems = cart.map((ci) => ({
     itemId: ci.item.id,
@@ -118,34 +114,17 @@ export default function AdminBillingPage() {
 
   const billCalc = calculateBill(
     calculationItems,
-    discountPercent,
+    0, // No discount
     currentSettings.taxEnabled,
     currentSettings.cgstPercent,
     currentSettings.sgstPercent
   );
 
-  const cashReceivedPaise = cashReceivedRupees
-    ? rupeesToPaise(parseFloat(cashReceivedRupees) || 0)
-    : 0;
-
-  const changeDuePaise =
-    paymentMethod === 'CASH' && cashReceivedPaise > billCalc.grandTotalPaise
-      ? cashReceivedPaise - billCalc.grandTotalPaise
-      : 0;
-
-  // Complete Bill Action
+  // Complete Bill Action - Immediately saves and prints directly to printer
   const handleCompleteBill = () => {
     if (cart.length === 0) {
-      setErrorMsg('Cart is empty. Please add items to complete bill.');
+      setErrorMsg('Please select items from the menu to complete the bill.');
       return;
-    }
-
-    if (paymentMethod === 'CASH' && cashReceivedRupees) {
-      const rcvd = parseFloat(cashReceivedRupees);
-      if (rcvd * 100 < billCalc.grandTotalPaise) {
-        setErrorMsg('Amount received is less than the Grand Total.');
-        return;
-      }
     }
 
     setSubmitting(true);
@@ -154,18 +133,23 @@ export default function AdminBillingPage() {
     try {
       const res = createInvoice({
         items: cart.map((ci) => ({ itemId: ci.item.id, quantity: ci.quantity })),
-        discountPercent,
+        discountPercent: 0,
         paymentMethod,
-        amountReceivedPaise: paymentMethod === 'CASH' && cashReceivedRupees ? cashReceivedPaise : undefined,
       });
 
       if (res.success && res.invoice) {
-        setCompletedInvoice(res.invoice);
-        setShowReceiptModal(true);
-        // Reset current bill
+        const inv = res.invoice;
+        setCompletedInvoice(inv);
+        // Clear cart immediately for next bill
         setCart([]);
-        setDiscountPercent(0);
-        setCashReceivedRupees('');
+        setErrorMsg(null);
+        setSuccessMsg(`Bill ${inv.invoiceNumber} completed! Sending to printer...`);
+        setTimeout(() => setSuccessMsg(null), 3500);
+
+        // Directly print to printer without any 2nd options
+        setTimeout(() => {
+          window.print();
+        }, 120);
       } else {
         setErrorMsg(res.error || 'Failed to complete bill.');
       }
@@ -221,6 +205,18 @@ export default function AdminBillingPage() {
         </div>
       )}
 
+      {successMsg && (
+        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between no-print animate-in fade-in duration-200">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span className="font-semibold">{successMsg}</span>
+          </div>
+          <button type="button" onClick={() => setSuccessMsg(null)}>
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {/* Main Billing Grid: Left Menu Selection, Right Bill Panel */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 no-print">
         {/* LEFT COLUMN: Categories & Items (7 Cols) */}
@@ -233,6 +229,7 @@ export default function AdminBillingPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search food & beverages..."
                 className="w-full pl-9 pr-4 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
@@ -242,20 +239,20 @@ export default function AdminBillingPage() {
               <button
                 type="button"
                 onClick={() => setSelectedCat('all')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                   selectedCat === 'all'
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                 }`}
               >
-                All Dishes
+                All Items
               </button>
               {categories.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setSelectedCat(c.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                     selectedCat === c.id
                       ? 'bg-amber-600 text-white shadow-xs'
                       : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
@@ -279,24 +276,25 @@ export default function AdminBillingPage() {
                   onClick={() => addToCart(dish)}
                   className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all duration-150 active:scale-95 group relative ${
                     inCartQty > 0
-                      ? 'bg-amber-50/80 border-amber-300 ring-1 ring-amber-400'
-                      : 'bg-white border-stone-200 hover:border-amber-300 hover:shadow-xs'
+                      ? 'bg-amber-50/70 border-amber-300 ring-2 ring-amber-500/30 shadow-xs'
+                      : 'bg-white border-stone-200/90 hover:border-amber-300 hover:shadow-md'
                   }`}
                 >
+                  {/* Selected count pill */}
                   {inCartQty > 0 && (
-                    <span className="absolute top-2 right-2 w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center shadow-xs">
+                    <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center shadow-md">
                       {inCartQty}
                     </span>
                   )}
 
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5">
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-1.5">
                       <span
-                        className={`w-2 h-2 rounded-full shrink-0 ${
+                        className={`w-2 h-2 rounded-full ${
                           dish.isVeg ? 'bg-emerald-600' : 'bg-red-600'
                         }`}
                       />
-                      <span className="text-[11px] text-stone-500 font-medium truncate">
+                      <span className="text-[10px] uppercase font-semibold text-stone-500">
                         {dish.isVeg ? 'Veg' : 'Non-Veg'}
                       </span>
                     </div>
@@ -339,7 +337,7 @@ export default function AdminBillingPage() {
               )}
             </div>
 
-            {/* Cart Table */}
+            {/* Cart Items List */}
             {cart.length === 0 ? (
               <div className="py-16 text-center text-stone-400 text-xs">
                 Select items from the menu on the left to start building the bill.
@@ -363,6 +361,7 @@ export default function AdminBillingPage() {
                         type="button"
                         onClick={() => updateQuantity(ci.item.id, -1)}
                         className="w-5 h-5 rounded bg-white text-stone-700 flex items-center justify-center hover:bg-stone-200"
+                        title="Decrease"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -373,6 +372,7 @@ export default function AdminBillingPage() {
                         type="button"
                         onClick={() => updateQuantity(ci.item.id, 1)}
                         className="w-5 h-5 rounded bg-white text-stone-700 flex items-center justify-center hover:bg-stone-200"
+                        title="Increase"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -399,7 +399,7 @@ export default function AdminBillingPage() {
             )}
           </div>
 
-          {/* Calculations & Checkout */}
+          {/* Calculations & Direct Checkout (Discount and Cash Received removed per requirement) */}
           <div className="pt-4 border-t border-stone-200 space-y-3 mt-4">
             {/* Subtotal */}
             <div className="flex items-center justify-between text-xs text-stone-600">
@@ -409,37 +409,7 @@ export default function AdminBillingPage() {
               </span>
             </div>
 
-            {/* Discount selector */}
-            {currentSettings.discountEnabled && (
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-stone-600">Discount:</span>
-                <div className="flex items-center gap-1">
-                  {[0, 5, 10, 15].map((pct) => (
-                    <button
-                      key={pct}
-                      type="button"
-                      onClick={() => setDiscountPercent(pct)}
-                      className={`px-2 py-0.5 rounded text-[11px] font-semibold ${
-                        discountPercent === pct
-                          ? 'bg-amber-600 text-white'
-                          : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-                      }`}
-                    >
-                      {pct}%
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {billCalc.discountPaise > 0 && (
-              <div className="flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                <span>Discount ({billCalc.discountPercent}%):</span>
-                <span>-{formatInr(billCalc.discountPaise)}</span>
-              </div>
-            )}
-
-            {/* STRICT REQUIREMENT: Only show tax if explicitly enabled */}
+            {/* Tax breakdown only if explicitly enabled */}
             {billCalc.taxEnabled && billCalc.taxPaise > 0 && billCalc.taxBreakdown && (
               <div className="space-y-1 text-xs text-stone-600 border-t border-dashed border-stone-200 pt-2">
                 <div className="flex items-center justify-between">
@@ -504,33 +474,9 @@ export default function AdminBillingPage() {
                   <span>Card</span>
                 </button>
               </div>
-
-              {/* Cash change calculator */}
-              {paymentMethod === 'CASH' && (
-                <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-200 space-y-2 text-xs">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-stone-600 font-medium">Cash Received (₹):</span>
-                    <input
-                      type="number"
-                      step="1"
-                      value={cashReceivedRupees}
-                      onChange={(e) => setCashReceivedRupees(e.target.value)}
-                      className="w-28 px-2 py-1 rounded-lg border border-stone-300 text-right font-mono font-bold text-stone-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                    />
-                  </div>
-                  {cashReceivedPaise > 0 && (
-                    <div className="flex items-center justify-between font-semibold">
-                      <span className="text-stone-700">Change Due:</span>
-                      <span className="text-emerald-700 font-mono text-sm">
-                        {formatInr(changeDuePaise)}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
 
-            {/* Complete Bill Action Button */}
+            {/* Complete Bill & Direct Print Button (No 2nd options, prints directly to TVS RP 3200 LITE) */}
             <button
               type="button"
               disabled={cart.length === 0 || submitting}
@@ -538,26 +484,20 @@ export default function AdminBillingPage() {
               className="w-full py-3.5 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-md transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               <Printer className="w-4 h-4" />
-              <span>{submitting ? 'Saving Invoice...' : 'Complete Bill & Print Receipt'}</span>
+              <span>{submitting ? 'Printing Bill...' : 'Complete Bill & Print'}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* RECEIPT PREVIEW / PRINT MODAL */}
-      {showReceiptModal && completedInvoice && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200 max-h-[95vh] overflow-y-auto">
-            <ThermalReceipt
-              invoice={completedInvoice}
-              settings={currentSettings}
-              autoPrint={true}
-              onClose={() => {
-                setShowReceiptModal(false);
-                setCompletedInvoice(null);
-              }}
-            />
-          </div>
+      {/* DIRECT PRINT RECEIPT (Hidden on-screen, printed directly via TVS RP 3200 LITE) */}
+      {completedInvoice && (
+        <div className="print-only">
+          <ThermalReceipt
+            invoice={completedInvoice}
+            settings={currentSettings}
+            hideControls={true}
+          />
         </div>
       )}
     </div>

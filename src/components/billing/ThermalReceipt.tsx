@@ -9,6 +9,7 @@ interface ThermalReceiptProps {
   settings: RestaurantSettings;
   onClose?: () => void;
   autoPrint?: boolean;
+  hideControls?: boolean;
 }
 
 export default function ThermalReceipt({
@@ -16,6 +17,7 @@ export default function ThermalReceipt({
   settings,
   onClose,
   autoPrint = false,
+  hideControls = false,
 }: ThermalReceiptProps) {
   React.useEffect(() => {
     if (autoPrint) {
@@ -40,8 +42,9 @@ export default function ThermalReceipt({
 
   return (
     <div>
-      {/* On-screen control bar (Hidden during printing) */}
-      <div className="no-print mb-4 p-4 rounded-xl bg-stone-900 text-white flex items-center justify-between gap-4">
+      {/* On-screen control bar (Hidden during printing or if hideControls is true) */}
+      {!hideControls && (
+        <div className="no-print mb-4 p-4 rounded-xl bg-stone-900 text-white flex items-center justify-between gap-4">
         <div>
           <span className="text-xs uppercase tracking-wider text-amber-400 font-bold block">
             Thermal Receipt Preview ({settings.receiptPaperWidth})
@@ -69,6 +72,7 @@ export default function ThermalReceipt({
           )}
         </div>
       </div>
+      )}
 
       {/* The Printable Thermal Receipt Container */}
       <div
