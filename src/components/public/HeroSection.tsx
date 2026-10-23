@@ -1,0 +1,83 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { ArrowRight, MapPin, Sparkles } from 'lucide-react';
+import { RestaurantSettings } from '@/lib/types';
+
+interface HeroSectionProps {
+  settings: RestaurantSettings;
+}
+
+export default function HeroSection({ settings }: HeroSectionProps) {
+  const restaurantName = settings.name || 'GrandLine Fine Dine & Cafe';
+  const heroImage =
+    settings.heroImageUrl ||
+    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80';
+
+  return (
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-stone-950 text-white">
+      {/* Background Photography with Warm Contrast Gradient */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroImage}
+          alt={restaurantName}
+          className="w-full h-full object-cover object-center brightness-[0.42] scale-105 animate-in fade-in zoom-in-95 duration-1000"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent" />
+        <div className="absolute inset-0 bg-radial-at-c from-transparent via-stone-950/40 to-stone-950/90" />
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center">
+        {/* Subtle Badge */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium mb-6 backdrop-blur-md animate-in fade-in slide-in-from-bottom-2 duration-700">
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <span>{settings.tagline || 'Artisanal Flavors & Authentic Hospitality'}</span>
+        </div>
+
+        {/* Primary Restaurant Name */}
+        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1] animate-in fade-in slide-in-from-bottom-4 duration-800">
+          {restaurantName}
+        </h1>
+
+        {/* Introduction / Description */}
+        <p className="max-w-2xl text-base sm:text-lg md:text-xl text-stone-300 font-light leading-relaxed mb-10 animate-in fade-in slide-in-from-bottom-6 duration-900">
+          {settings.description ||
+            'Experience an extraordinary gastronomic voyage featuring heritage coastal recipes, slow-simmered handi specialties, and wood-fired delicacies crafted with fresh regional ingredients.'}
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <Link
+            href="/menu"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-base shadow-lg shadow-amber-950/50 hover:shadow-amber-600/30 transition-all flex items-center justify-center gap-2 group active:scale-95"
+          >
+            <span>Explore Our Menu</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+
+          <Link
+            href="/contact"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-stone-900/80 hover:bg-stone-800 text-stone-200 hover:text-white font-medium text-base border border-stone-700 backdrop-blur-md transition-all flex items-center justify-center gap-2 active:scale-95"
+          >
+            <MapPin className="w-4 h-4 text-amber-400" />
+            <span>Find Us & Contact</span>
+          </Link>
+        </div>
+
+        {/* Service Hours Strip */}
+        <div className="mt-14 pt-8 border-t border-stone-800/80 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-stone-400">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Open Today: {settings.openingHours?.split(':')[1] ? settings.openingHours : '11:30 AM – 11:30 PM'}</span>
+          </div>
+          <div className="hidden sm:block text-stone-700">•</div>
+          <div>Dine-in & Quick Takeaway</div>
+          <div className="hidden sm:block text-stone-700">•</div>
+          <div>Fresh Handcrafted Daily</div>
+        </div>
+      </div>
+    </section>
+  );
+}
