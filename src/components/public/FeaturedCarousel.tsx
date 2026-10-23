@@ -25,13 +25,13 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-600 mb-2">
               <Star className="w-3.5 h-3.5 fill-amber-600" />
-              <span>Chef&apos;s Recommendations</span>
+              <span>Featured Items</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-              Featured Specialties
+              Featured Items
             </h2>
             <p className="mt-2 text-stone-600 max-w-xl text-sm sm:text-base">
-              Hand-selected signature creations, cooked slowly over fragrant charcoal embers and infused with stone-ground spice blends.
+              Discover dishes currently highlighted on our menu.
             </p>
           </div>
           <div className="mt-4 md:mt-0">
@@ -39,7 +39,7 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
               href="/menu"
               className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors group"
             >
-              <span>Explore Complete Menu</span>
+              <span>Explore Our Menu</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -90,7 +90,7 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
                 </div>
 
                 <div className="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                  <span className="text-emerald-700 font-medium">Available Fresh Today</span>
+                  <span className="text-emerald-700 font-medium">Available</span>
                   <Link
                     href="/menu"
                     className="font-medium text-amber-600 hover:text-amber-700"

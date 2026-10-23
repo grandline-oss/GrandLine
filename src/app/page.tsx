@@ -8,7 +8,7 @@ import HeroSection from '@/components/public/HeroSection';
 import FeaturedCarousel from '@/components/public/FeaturedCarousel';
 import { getSettings, getMenuItems } from '@/lib/storage';
 import { RestaurantSettings, MenuItem } from '@/lib/types';
-import { Utensils, Flame, Leaf, Clock, MapPin, ArrowRight, Phone } from 'lucide-react';
+import { Clock, MapPin, ArrowRight, Phone } from 'lucide-react';
 
 export default function HomePage() {
   const [settings, setSettings] = useState<RestaurantSettings | null>(null);
@@ -38,137 +38,53 @@ export default function HomePage() {
         {/* Featured Food Carousel / Grid */}
         <FeaturedCarousel items={menuItems} />
 
-        {/* Restaurant Introduction & Story Section */}
-        <section className="py-20 bg-stone-900 text-stone-100 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <div>
-                <span className="text-xs uppercase tracking-widest text-amber-500 font-bold block mb-2">
-                  Our Culinary Philosophy
-                </span>
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6 leading-tight">
-                  Crafting Timeless Flavors, Rooted in Tradition
-                </h2>
-                <div className="space-y-4 text-stone-300 text-sm sm:text-base leading-relaxed">
-                  <p>{settings.story}</p>
-                  <p>{settings.philosophy}</p>
-                </div>
-
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/about"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm transition-all active:scale-95 shadow-md shadow-amber-950/40"
-                  >
-                    <span>Read Our Full Story</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-medium text-sm border border-stone-700 transition-all"
-                  >
-                    <span>Reserve a Table</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Visual Showcase Collage */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border border-stone-800">
-                    <img
-                      src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
-                      alt="Artisanal cooking"
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="p-4 rounded-xl bg-stone-800/60 border border-stone-700/60 text-center">
-                    <span className="font-serif text-2xl font-bold text-amber-400 block">100%</span>
-                    <span className="text-xs text-stone-300">Fresh Local Produce</span>
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="p-4 rounded-xl bg-stone-800/60 border border-stone-700/60 text-center">
-                    <span className="font-serif text-2xl font-bold text-amber-400 block">Stone-Ground</span>
-                    <span className="text-xs text-stone-300">House-Blended Spices</span>
-                  </div>
-                  <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border border-stone-800">
-                    <img
-                      src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
-                      alt="Restaurant atmosphere"
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Restaurant Highlights / Core Values */}
-        <section className="py-20 bg-white border-y border-stone-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs uppercase tracking-widest text-amber-600 font-bold block mb-2">
-                What Sets Us Apart
+        {/* Restaurant Introduction & Story Section (Rendered only when story is supplied) */}
+        {settings.story && (
+          <section className="py-20 bg-stone-900 text-stone-100 relative overflow-hidden">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+              <span className="text-xs uppercase tracking-widest text-amber-500 font-bold block mb-2">
+                About Us
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-                An Authentic Gastronomic Experience
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6 leading-tight">
+                {settings.name}
               </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="p-8 rounded-2xl bg-stone-50 border border-stone-200/80 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-6">
-                  <Flame className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-stone-900 mb-3">
-                  Clay Oven & Wood-Fire
-                </h3>
-                <p className="text-stone-600 text-sm leading-relaxed">
-                  Traditional tandoors and slow-simmered handis infuse every kebab and curry with authentic charcoal aroma and velvety richness.
-                </p>
+              <div className="space-y-4 text-stone-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                <p>{settings.story}</p>
+                {settings.philosophy && <p>{settings.philosophy}</p>}
               </div>
 
-              <div className="p-8 rounded-2xl bg-stone-50 border border-stone-200/80 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6">
-                  <Leaf className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-stone-900 mb-3">
-                  Zero Artificial Additives
-                </h3>
-                <p className="text-stone-600 text-sm leading-relaxed">
-                  We prepare every sauce, marinade, and stock from scratch. No artificial colorings or shortcuts—just pure, honest ingredients.
-                </p>
-              </div>
-
-              <div className="p-8 rounded-2xl bg-stone-50 border border-stone-200/80 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center mb-6">
-                  <Utensils className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-stone-900 mb-3">
-                  Coastal Heritage Recipes
-                </h3>
-                <p className="text-stone-600 text-sm leading-relaxed">
-                  Time-honored marinades featuring stone-ground Malabar pepper, hand-pressed coconut milk, and seasonal fresh coastal catches.
-                </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm transition-all active:scale-95 shadow-md shadow-amber-950/40"
+                >
+                  <span>About Us</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-medium text-sm border border-stone-700 transition-all"
+                >
+                  <span>Contact Information</span>
+                </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* Visit & Hours Strip */}
+        {/* Visit & Contact Strip */}
         <section className="py-16 bg-[#faf8f5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-stone-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-stone-800 flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="space-y-4 max-w-xl">
                 <span className="text-xs uppercase tracking-widest text-amber-500 font-bold block">
-                  Join Us for Lunch or Dinner
+                  Visit & Inquiries
                 </span>
                 <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
-                  Experience {settings.name}
+                  {settings.name}
                 </h3>
                 <p className="text-stone-400 text-sm sm:text-base leading-relaxed">
-                  Whether you are planning a relaxed family feast, an intimate evening, or a celebratory gathering, our doors are open to welcome you.
+                  Browse our menu to explore the items and prices currently offered, or reach out to us directly for any inquiries.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-2 text-xs sm:text-sm text-stone-300">
                   {settings.openingHours && (

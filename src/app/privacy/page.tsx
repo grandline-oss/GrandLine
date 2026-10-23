@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { Shield, ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | GrandLine Fine Dine & Cafe',
-  description: 'Our commitment to protecting your privacy, data handling policies, and consumer rights at GrandLine Fine Dine & Cafe.',
+  title: 'Privacy Policy | GRAND LINE CAFÉ & RESTAURANT',
+  description: 'Our commitment to protecting your privacy, data handling policies, and consumer rights at GRAND LINE CAFÉ & RESTAURANT.',
 };
 
 export default function PrivacyPolicyPage() {
@@ -35,14 +35,14 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <p className="text-xs text-stone-400 mt-2">
-              Last updated: October 2026 | Effective for GrandLine Fine Dine & Cafe
+              Last updated: October 2026 | Effective for GRAND LINE CAFÉ & RESTAURANT
             </p>
           </div>
 
           <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
             <h2 className="font-serif text-xl font-bold text-stone-900">1. Overview</h2>
             <p>
-              GrandLine Fine Dine & Cafe (&quot;GrandLine&quot;, &quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is dedicated to respecting and protecting the privacy of our dining guests, website visitors, and patrons. This Privacy Policy details the types of personal data we collect, how it is safeguarded, and your statutory rights under applicable privacy legislation (including India&apos;s Digital Personal Data Protection Act).
+              GRAND LINE CAFÉ & RESTAURANT (&quot;GRAND LINE&quot;, &quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is dedicated to respecting and protecting the privacy of our dining guests, website visitors, and patrons. This Privacy Policy details the types of personal data we collect, how it is safeguarded, and your statutory rights under applicable privacy legislation (including India&apos;s Digital Personal Data Protection Act).
             </p>
           </section>
 
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="font-serif text-xl font-bold text-stone-900">3. Purpose and Legal Basis for Processing</h2>
             <p>Your data is processed strictly for:</p>
             <ul className="list-disc pl-5 space-y-2">
-              <li>Facilitating dining table reservations and responding to culinary inquiries.</li>
+              <li>Facilitating dining table inquiries and responding to customer questions.</li>
               <li>Fulfilling legal and tax obligations, including GST and invoice generation where applicable.</li>
               <li>Protecting website integrity, preventing unauthorized administrative access, and mitigating brute-force risks.</li>
             </ul>
@@ -104,7 +104,7 @@ export default function PrivacyPolicyPage() {
               You have the right to request access to, correction of, or deletion of your personal contact records (subject to statutory accounting retention exemptions). To exercise these rights, please contact our administration at:
             </p>
             <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs space-y-1">
-              <p><strong>GrandLine Fine Dine & Cafe</strong></p>
+              <p><strong>GRAND LINE CAFÉ & RESTAURANT</strong></p>
               <p>Email: <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 underline font-medium">grandlinecaferestaurant@gmail.com</a></p>
             </div>
           </section>

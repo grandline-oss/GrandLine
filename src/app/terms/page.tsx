@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { FileText, ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Terms and Conditions | GrandLine Fine Dine & Cafe',
-  description: 'Terms of service, dining policies, reservation guidelines, and website conditions for GrandLine Fine Dine & Cafe.',
+  title: 'Terms and Conditions | GRAND LINE CAFÉ & RESTAURANT',
+  description: 'Terms of service, dining policies, reservation guidelines, and website conditions for GRAND LINE CAFÉ & RESTAURANT.',
 };
 
 export default function TermsPage() {
@@ -35,21 +35,21 @@ export default function TermsPage() {
               Terms & Conditions
             </h1>
             <p className="text-xs text-stone-400 mt-2">
-              Last updated: October 2026 | Governing all dining and website usage
+              Last updated: October 2026 | Governing dining and website usage
             </p>
           </div>
 
           <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
             <h2 className="font-serif text-xl font-bold text-stone-900">1. Acceptance of Terms</h2>
             <p>
-              By accessing the GrandLine Fine Dine & Cafe website or visiting our dining premises, you agree to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree with any part of these terms, please refrain from using our digital services.
+              By accessing the GRAND LINE CAFÉ & RESTAURANT website or visiting our dining premises, you agree to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree with any part of these terms, please refrain from using our digital services.
             </p>
           </section>
 
           <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
             <h2 className="font-serif text-xl font-bold text-stone-900">2. Menu, Pricing & Allergen Information</h2>
             <p>
-              All menu listings, seasonal specialties, and prices are subject to change based on fresh daily market availability. While our kitchen team takes meticulous care regarding culinary preparation, guests with severe food allergies must inform service staff prior to ordering.
+              All menu listings, items, and prices are subject to change based on kitchen and market availability. While our kitchen team takes meticulous care regarding preparation, guests with food allergies must inform service staff prior to ordering.
             </p>
             <p>
               Prices shown in our dining room and invoices are in Indian Rupees (₹). Applicable GST or statutory levies will be itemized on the final tax invoice when activated per statutory thresholds.
@@ -57,7 +57,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">3. Table Reservations & Cancellations</h2>
+            <h2 className="font-serif text-xl font-bold text-stone-900">3. Table Inquiries & Reservations</h2>
             <p>
               Online or telephone table reservations are held for up to 15 minutes past the reserved time during peak dining hours before being released to walk-in patrons. Please notify us promptly if your schedule changes.
             </p>
@@ -66,14 +66,14 @@ export default function TermsPage() {
           <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
             <h2 className="font-serif text-xl font-bold text-stone-900">4. Billing & Refund Policy</h2>
             <p>
-              Our website serves as an informational and dining menu presentation platform; transactions and payment settlements occur in-person at the restaurant cash counter via Cash, UPI, or Card. If an item does not meet culinary standards or an error occurs in the bill, please bring it to the attention of the restaurant manager immediately before settling the bill for resolution or adjustment.
+              Our website serves as an informational menu presentation platform; transactions and payment settlements occur in-person at the restaurant cash counter via Cash, UPI, or Card. If an item does not meet standards or an error occurs in the bill, please bring it to the attention of the restaurant manager immediately before settling the bill for resolution or adjustment.
             </p>
           </section>
 
           <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
             <h2 className="font-serif text-xl font-bold text-stone-900">5. Intellectual Property</h2>
             <p>
-              The GrandLine trademark, logo, food photography, culinary descriptions, and website branding are the intellectual property of GrandLine Fine Dine & Cafe. Unauthorized reproduction or commercial use is prohibited without prior written consent.
+              The GRAND LINE CAFÉ & RESTAURANT trademark, logo, food photography, menu descriptions, and website branding are the intellectual property of GRAND LINE CAFÉ & RESTAURANT. Unauthorized reproduction or commercial use is prohibited without prior written consent.
             </p>
           </section>
 
@@ -81,7 +81,7 @@ export default function TermsPage() {
             <h2 className="font-serif text-xl font-bold text-stone-900">6. Contact for Inquiries</h2>
             <p>For questions or inquiries regarding these terms, reach us at:</p>
             <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs space-y-1">
-              <p><strong>GrandLine Fine Dine & Cafe</strong></p>
+              <p><strong>GRAND LINE CAFÉ & RESTAURANT</strong></p>
               <p>Email: <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 underline font-medium">grandlinecaferestaurant@gmail.com</a></p>
             </div>
           </section>

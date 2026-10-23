@@ -27,7 +27,7 @@ export default function ContactPage() {
     setSettings(getSettings());
   }, []);
 
-  const restaurantName = settings?.name || 'GrandLine Fine Dine & Cafe';
+  const restaurantName = settings?.name || 'GRAND LINE CAFÉ & RESTAURANT';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,7 +110,7 @@ export default function ContactPage() {
                       Address
                     </h3>
                     <p className="text-stone-600 text-sm leading-relaxed">
-                      {settings?.address || '14, Marine Drive Promenade, Near Harbour Point, Kochi, Kerala - 682001'}
+                      {settings?.address || 'Address details will be updated shortly.'}
                     </p>
                     {settings?.googleMapsUrl && (
                       <a
@@ -133,13 +133,10 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-1">
                     <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wide">
-                      Dine-in & Takeaway Hours
+                      Service Hours
                     </h3>
                     <p className="text-stone-600 text-sm">
-                      {settings?.openingHours || 'Monday – Sunday: 11:30 AM – 11:30 PM'}
-                    </p>
-                    <p className="text-xs text-stone-500 pt-1">
-                      Kitchen accepts last orders 30 minutes prior to closing.
+                      {settings?.openingHours || 'Opening hours will be announced soon.'}
                     </p>
                   </div>
                 </div>

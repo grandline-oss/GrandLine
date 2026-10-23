@@ -70,7 +70,7 @@ export default function HeroSection({ settings }: HeroSectionProps) {
         {/* Introduction / Description */}
         <p className="max-w-2xl text-base sm:text-lg md:text-xl text-stone-300 font-light leading-relaxed mb-10 animate-in fade-in slide-in-from-bottom-6 duration-900">
           {settings.description ||
-            'Experience an extraordinary gastronomic voyage featuring heritage coastal recipes, slow-simmered handi specialties, and wood-fired delicacies crafted with fresh regional ingredients.'}
+            'Discover the food and beverages available at GRAND LINE CAFÉ & RESTAURANT. Browse our menu to explore the items and prices currently offered.'}
         </p>
 
         {/* Action Buttons */}
@@ -92,21 +92,26 @@ export default function HeroSection({ settings }: HeroSectionProps) {
           </Link>
         </div>
 
-        {/* Service Hours Strip */}
-        <div className="mt-14 pt-8 border-t border-stone-800/80 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-stone-400">
-          {settings.openingHours && (
-            <>
+        {/* Service Details Strip */}
+        {(settings.openingHours || settings.address) && (
+          <div className="mt-14 pt-8 border-t border-stone-800/80 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-stone-400">
+            {settings.openingHours && (
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Open Today: {settings.openingHours}</span>
+                <span>Opening Hours: {settings.openingHours}</span>
               </div>
+            )}
+            {settings.openingHours && settings.address && (
               <div className="hidden sm:block text-stone-700">•</div>
-            </>
-          )}
-          <div>Dine-in & Quick Takeaway</div>
-          <div className="hidden sm:block text-stone-700">•</div>
-          <div>Fresh Handcrafted Daily</div>
-        </div>
+            )}
+            {settings.address && (
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                <span>{settings.address.split(',')[0]}</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

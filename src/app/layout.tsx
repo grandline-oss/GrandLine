@@ -8,18 +8,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://grand-line-red.vercel.app'),
   title: 'GRAND LINE CAFÉ & RESTAURANT | Your Journey Begins Here',
   description:
-    'Official website of GRAND LINE CAFÉ & RESTAURANT. Your journey begins here with artisanal culinary craftsmanship, authentic coastal delicacies, clay-oven tandoor specialties, and handcrafted cafe coolers.',
+    'Official website of GRAND LINE CAFÉ & RESTAURANT. Your Journey Begins Here. Browse our menu to discover the items and prices currently offered.',
   keywords: [
     'GRAND LINE',
     'Grand Line Cafe',
     'Grand Line Restaurant',
-    'fine dining',
-    'coastal seafood',
+    'restaurant',
     'cafe',
-    'artisanal cuisine',
-    'tandoor',
-    'biryani',
-    'Kochi dining',
+    'food',
+    'beverages',
+    'menu',
   ],
   icons: {
     icon: '/brand/grand-line-logo.jpg',
@@ -28,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'GRAND LINE CAFÉ & RESTAURANT',
-    description: 'Your Journey Begins Here • Artisanal Flavors & Authentic Hospitality',
+    description: 'Official website of GRAND LINE CAFÉ & RESTAURANT. Your Journey Begins Here.',
     type: 'website',
     images: [
       {

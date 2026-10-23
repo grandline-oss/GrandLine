@@ -648,7 +648,7 @@ export default function AdminMenuPage() {
                     onChange={(e) => setItemForm({ ...itemForm, isFeatured: e.target.checked })}
                     className="w-4 h-4 text-amber-600 rounded"
                   />
-                  <span className="text-xs font-semibold text-stone-800">Chef Featured</span>
+                  <span className="text-xs font-semibold text-stone-800">Featured Item</span>
                 </label>
 
                 <label className="flex items-center gap-2 p-3 rounded-xl border border-stone-200 cursor-pointer hover:bg-stone-50">

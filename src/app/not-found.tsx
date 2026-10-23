@@ -53,10 +53,10 @@ export default function NotFound() {
               Error 404 &bull; Page Not Found
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight">
-              A Flavor That Vanished
+              Page Not Found
             </h1>
             <p className="text-sm text-stone-600 leading-relaxed">
-              The page or culinary specialty you are looking for may have been moved, renamed, or is temporarily off today&apos;s specials.
+              The page you are looking for could not be found or may have been moved.
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export default function NotFound() {
           </div>
 
           <p className="text-xs text-stone-400 pt-6 border-t border-stone-200">
-            Need reservations or assistance? Reach our host at{' '}
+            Need assistance? Contact our team at{' '}
             <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 underline font-medium">
               grandlinecaferestaurant@gmail.com
             </a>
@@ -86,7 +86,7 @@ export default function NotFound() {
 
       {/* Bottom Footer */}
       <footer className="py-6 text-center text-xs text-stone-400">
-        &copy; 2026 GrandLine Fine Dine & Cafe. All rights reserved.
+        &copy; 2026 GRAND LINE CAFÉ & RESTAURANT. All rights reserved.
       </footer>
     </div>
   );

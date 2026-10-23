@@ -60,13 +60,13 @@ export default function MenuPage() {
         <section className="bg-stone-900 text-white py-16 sm:py-20 border-b border-stone-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span className="text-xs uppercase tracking-widest text-amber-500 font-bold block mb-2">
-              Freshly Prepared Every Day
+              EXPLORE OUR MENU
             </span>
             <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-              Our Culinary Menu
+              Our Menu
             </h1>
             <p className="max-w-2xl mx-auto text-stone-300 text-sm sm:text-base leading-relaxed">
-              Explore our selection of handcrafted heritage recipes, aromatic clay oven breads, slow-cooked curries, and refreshing artisanal coolers.
+              Discover the food and beverages available at GRAND LINE CAFÉ & RESTAURANT. Browse our menu to explore the items and prices currently offered.
             </p>
           </div>
         </section>
@@ -182,11 +182,11 @@ export default function MenuPage() {
                 <Utensils className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-xl font-bold text-stone-900 mb-2">
-                {menuItems.length === 0 ? 'Menu is Currently Being Updated' : 'No Dishes Match Your Selection'}
+                {menuItems.length === 0 ? 'Our Menu' : 'No Dishes Match Your Selection'}
               </h3>
               <p className="text-stone-600 text-sm mb-6">
                 {menuItems.length === 0
-                  ? 'Our chef and management team are currently curating the dishes. Please check back shortly!'
+                  ? 'Our menu is being updated. Please check back soon.'
                   : 'Try adjusting your search terms or clearing the active category and dietary filters.'}
               </p>
               {menuItems.length > 0 && (
@@ -233,11 +233,11 @@ export default function MenuPage() {
                       </span>
                     </div>
 
-                    {/* Featured Star Badge */}
+                    {/* Featured Badge */}
                     {dish.isFeatured && (
                       <div className="absolute top-3 left-3 bg-amber-500 text-stone-950 font-bold px-2 py-0.5 rounded-md shadow-sm flex items-center gap-1 text-[11px]">
                         <Sparkles className="w-3 h-3 fill-stone-950" />
-                        <span>Chef Choice</span>
+                        <span>Featured</span>
                       </div>
                     )}
 
@@ -245,7 +245,7 @@ export default function MenuPage() {
                     {!dish.isAvailable && (
                       <div className="absolute inset-0 bg-stone-950/60 backdrop-blur-xs flex items-center justify-center">
                         <span className="bg-stone-900 text-white text-xs uppercase tracking-wider font-semibold px-3 py-1.5 rounded-md">
-                          Currently Sold Out
+                          Currently Unavailable
                         </span>
                       </div>
                     )}
@@ -270,12 +270,11 @@ export default function MenuPage() {
                     <div className="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
                       <span>
                         {dish.isAvailable ? (
-                          <span className="text-emerald-700 font-medium">Ready to serve</span>
+                          <span className="text-emerald-700 font-medium">Available</span>
                         ) : (
-                          <span className="text-stone-400 font-medium">Restocking shortly</span>
+                          <span className="text-stone-400 font-medium">Unavailable</span>
                         )}
                       </span>
-                      <span className="text-stone-400 italic">Dine-in & Takeaway</span>
                     </div>
                   </div>
                 </div>
@@ -284,14 +283,14 @@ export default function MenuPage() {
           )}
         </section>
 
-        {/* Note on Dine-in Experience */}
+        {/* Note on Dietary Preferences */}
         <section className="py-12 bg-white border-t border-stone-200">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h3 className="font-serif text-xl font-bold text-stone-900 mb-2">
               Dietary or Allergy Preferences?
             </h3>
             <p className="text-sm text-stone-600 leading-relaxed">
-              Please inform your server of any dietary requirements or food allergies before ordering. All dishes are prepared to order in our kitchen with pure cooking mediums.
+              Please inform your server of any dietary requirements or food allergies before ordering.
             </p>
           </div>
         </section>

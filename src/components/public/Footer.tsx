@@ -54,7 +54,7 @@ export default function Footer() {
                 href="/menu"
                 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-500 hover:text-amber-400 transition-colors"
               >
-                View Culinary Menu <ArrowRight className="w-3.5 h-3.5" />
+                View Menu <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
@@ -72,17 +72,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/menu" className="hover:text-white transition-colors">
-                  Our Menu & Specialties
+                  Menu
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
-                  Our Heritage & Story
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
-                  Reservations & Directions
+                  Contact
                 </Link>
               </li>
               <li>
@@ -140,16 +140,12 @@ export default function Footer() {
                 <div className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-amber-500 shrink-0 mt-1" />
                   <div>
-                    <span className="text-stone-200 block font-medium">Dine-in & Takeaway</span>
                     <span>{settings.openingHours}</span>
                   </div>
                 </div>
               ) : (
                 <p className="text-xs text-stone-500">Service hours to be announced.</p>
               )}
-              <p className="text-xs text-stone-500 pt-2 border-t border-stone-800">
-                Freshly prepared per order. Table reservations recommended for weekend dinners.
-              </p>
             </div>
           </div>
         </div>
