@@ -66,7 +66,7 @@ export default function ContactPage() {
   const cleanWhatsapp = settings?.whatsapp?.replace(/\D/g, '') || cleanPhone;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5]">
+    <div className="min-h-screen flex flex-col bg-[#faf8f5] dark:bg-[#121214] text-[#1c1917] dark:text-[#f4f4f5] transition-colors duration-200">
       <Header />
 
       <main className="flex-1">
@@ -91,25 +91,25 @@ export default function ContactPage() {
             {/* Contact Details & Direct Actions */}
             <div className="space-y-8">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-amber-600 block mb-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
                   Location & Hours
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-stone-100">
                   {restaurantName}
                 </h2>
               </div>
 
               <div className="space-y-6">
                 {/* Address Card */}
-                <div className="p-6 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 shadow-xs flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wide">
+                    <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100 uppercase tracking-wide">
                       Address
                     </h3>
-                    <p className="text-stone-600 text-sm leading-relaxed">
+                    <p className="text-stone-600 dark:text-stone-400 text-sm leading-relaxed">
                       {settings?.address || 'Address details will be updated shortly.'}
                     </p>
                     {settings?.googleMapsUrl && (
@@ -117,7 +117,7 @@ export default function ContactPage() {
                         href={settings.googleMapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 pt-2"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 pt-2"
                       >
                         <span>Open in Google Maps</span>
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -127,15 +127,15 @@ export default function ContactPage() {
                 </div>
 
                 {/* Hours Card */}
-                <div className="p-6 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 shadow-xs flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wide">
+                    <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100 uppercase tracking-wide">
                       Service Hours
                     </h3>
-                    <p className="text-stone-600 text-sm">
+                    <p className="text-stone-600 dark:text-stone-400 text-sm">
                       {settings?.openingHours || 'Opening hours will be announced soon.'}
                     </p>
                   </div>
@@ -146,7 +146,7 @@ export default function ContactPage() {
                   {settings?.phone && (
                     <a
                       href={`tel:${cleanPhone}`}
-                      className="p-5 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white transition-all flex items-center gap-3.5 shadow-md group"
+                      className="p-5 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white transition-all flex items-center gap-3.5 shadow-md group border border-stone-800"
                     >
                       <div className="w-10 h-10 rounded-xl bg-stone-800 group-hover:bg-amber-600 text-amber-400 group-hover:text-white flex items-center justify-center shrink-0 transition-colors">
                         <Phone className="w-5 h-5" />
@@ -181,26 +181,26 @@ export default function ContactPage() {
             </div>
 
             {/* Table Reservation Inquiry Form */}
-            <div className="bg-white p-8 sm:p-10 rounded-3xl border border-stone-200 shadow-sm">
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 block mb-1">
+            <div className="bg-white dark:bg-stone-900 p-8 sm:p-10 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
                 Table Inquiry
               </span>
-              <h3 className="font-serif text-2xl font-bold text-stone-900 mb-2">
+              <h3 className="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mb-2">
                 Reserve Your Dining Experience
               </h3>
-              <p className="text-stone-600 text-sm mb-6">
+              <p className="text-stone-600 dark:text-stone-400 text-sm mb-6">
                 Fill out the details below and our restaurant host will confirm table availability for your group.
               </p>
 
               {submitted ? (
-                <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+                <div className="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center mx-auto">
                     <CheckCircle className="w-6 h-6" />
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-emerald-900">
+                  <h4 className="font-serif text-lg font-bold text-emerald-900 dark:text-emerald-200">
                     Inquiry Received!
                   </h4>
-                  <p className="text-sm text-emerald-800">
+                  <p className="text-sm text-emerald-800 dark:text-emerald-300">
                     Thank you, {form.name}. Our front desk will contact you at {form.phone} shortly to confirm your reservation.
                   </p>
                   <button
@@ -209,7 +209,7 @@ export default function ContactPage() {
                       setSubmitted(false);
                       setForm({ name: '', phone: '', date: '', guests: '2', notes: '' });
                     }}
-                    className="text-xs font-semibold text-emerald-900 underline mt-2"
+                    className="text-xs font-semibold text-emerald-900 dark:text-emerald-300 underline mt-2"
                   >
                     Send another inquiry
                   </button>
@@ -217,7 +217,7 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {errorMsg && (
-                    <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium">
+                    <div className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs font-medium">
                       {errorMsg}
                     </div>
                   )}
@@ -236,7 +236,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1.5">
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1.5">
                       Your Name *
                     </label>
                     <input
@@ -244,13 +244,14 @@ export default function ContactPage() {
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                      placeholder="e.g. Rahul Sharma"
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-950 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1.5">
+                      <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1.5">
                         Phone Number *
                       </label>
                       <input
@@ -258,17 +259,18 @@ export default function ContactPage() {
                         required
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                        placeholder="+91 98765 43210"
+                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-950 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1.5">
+                      <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1.5">
                         Guests
                       </label>
                       <select
                         value={form.guests}
                         onChange={(e) => setForm({ ...form, guests: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 bg-white"
+                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 bg-white dark:bg-stone-950"
                       >
                         <option value="1">1 Guest</option>
                         <option value="2">2 Guests</option>
@@ -280,33 +282,35 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1.5">
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1.5">
                       Preferred Date & Time
                     </label>
                     <input
                       type="text"
                       value={form.date}
                       onChange={(e) => setForm({ ...form, date: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                      placeholder="e.g. Tonight at 8:00 PM"
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-950 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1.5">
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1.5">
                       Special Requests / Dietary Notes
                     </label>
                     <textarea
                       rows={3}
                       value={form.notes}
                       onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                      placeholder="Any seating preference, celebration notes, or food allergies..."
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-950 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                     />
                   </div>
 
                   {/* Privacy Notice */}
-                  <p className="text-[11px] text-stone-500 leading-normal pt-1">
+                  <p className="text-[11px] text-stone-500 dark:text-stone-400 leading-normal pt-1">
                     Your details are used solely to confirm this table inquiry. We never send spam or share your number. See our{' '}
-                    <Link href="/privacy" className="text-amber-700 underline underline-offset-2">
+                    <Link href="/privacy" className="text-amber-700 dark:text-amber-400 underline underline-offset-2">
                       Privacy Policy
                     </Link>.
                   </p>

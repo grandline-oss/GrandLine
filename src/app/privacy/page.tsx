@@ -12,35 +12,35 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5] text-stone-900">
+    <div className="min-h-screen flex flex-col bg-[#faf8f5] dark:bg-[#121214] text-stone-900 dark:text-stone-100 transition-colors duration-200">
       <Header />
 
       <main className="flex-1 py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-700 hover:text-amber-600 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400 hover:text-amber-600 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Return to Home
           </Link>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-stone-200/80 shadow-sm space-y-8">
-          <div className="border-b border-stone-100 pb-6">
-            <div className="flex items-center gap-3 text-amber-600 mb-2">
+        <div className="bg-white dark:bg-stone-900 rounded-3xl p-8 sm:p-12 border border-stone-200/80 dark:border-stone-800 shadow-sm space-y-8">
+          <div className="border-b border-stone-100 dark:border-stone-800 pb-6">
+            <div className="flex items-center gap-3 text-amber-600 dark:text-amber-400 mb-2">
               <Shield className="w-6 h-6" />
               <span className="text-xs uppercase font-bold tracking-widest">Legal & Compliance</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 dark:text-stone-100">
               Privacy Policy
             </h1>
-            <p className="text-xs text-stone-400 mt-2">
+            <p className="text-xs text-stone-400 dark:text-stone-500 mt-2">
               Last updated: October 2026 | Effective for GRAND LINE CAFÉ & RESTAURANT
             </p>
           </div>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">1. Overview</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">1. Overview</h2>
             <p>
               GRAND LINE CAFÉ & RESTAURANT (&quot;GRAND LINE&quot;, &quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is dedicated to respecting and protecting the privacy of our dining guests, website visitors, and patrons. This Privacy Policy details the types of personal data we collect, how it is safeguarded, and your statutory rights under applicable privacy legislation (including India&apos;s Digital Personal Data Protection Act).
             </p>

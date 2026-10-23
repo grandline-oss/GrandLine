@@ -47,34 +47,34 @@ export default function ThermalReceipt({
     <div>
       {/* On-screen control bar (Hidden during printing or if hideControls is true) */}
       {!hideControls && (
-        <div className="no-print mb-4 p-4 rounded-xl bg-stone-900 text-white flex items-center justify-between gap-4">
-        <div>
-          <span className="text-xs uppercase tracking-wider text-amber-400 font-bold block">
-            Thermal Receipt Preview ({settings.receiptPaperWidth})
-          </span>
-          <span className="text-sm text-stone-300">
-            Invoice: <strong className="text-white">{invoice.invoiceNumber}</strong>
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs shadow-sm transition-all"
-          >
-            Print Receipt (TVS RP 3200 LITE)
-          </button>
-          {onClose && (
+        <div className="no-print mb-4 p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-white flex items-center justify-between gap-4">
+          <div>
+            <span className="text-xs uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold block">
+              Thermal Receipt Preview ({settings.receiptPaperWidth})
+            </span>
+            <span className="text-sm text-stone-600 dark:text-stone-300">
+              Invoice: <strong className="text-stone-900 dark:text-white">{invoice.invoiceNumber}</strong>
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={onClose}
-              className="px-3 py-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs transition-colors"
+              onClick={() => window.print()}
+              className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs shadow-sm transition-all"
             >
-              Close Preview
+              Print Receipt (TVS RP 3200 LITE)
             </button>
-          )}
+            {onClose && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-3 py-2 rounded-lg bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-xs transition-colors"
+              >
+                Close Preview
+              </button>
+            )}
+          </div>
         </div>
-      </div>
       )}
 
       {/* The Printable Thermal Receipt Container */}

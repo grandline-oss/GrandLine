@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Footer() {
   const [settings, setSettings] = useState<RestaurantSettings | null>(null);
@@ -166,17 +167,19 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* TAPSH developer credit - Strict adherence: small, secondary, linking to https://tapsh.in/ */}
-          <div className="text-stone-400 tracking-wide text-xs">
-            Website crafted by{' '}
-            <a
-              href="https://tapsh.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-stone-300 hover:text-amber-400 font-medium transition-colors underline decoration-stone-700 underline-offset-4 hover:decoration-amber-400"
-            >
-              TAPSH
-            </a>
+          <div className="flex items-center gap-4">
+            <ThemeToggle variant="pill" />
+            <div className="text-stone-400 tracking-wide text-xs">
+              Website crafted by{' '}
+              <a
+                href="https://tapsh.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone-300 hover:text-amber-400 font-medium transition-colors underline decoration-stone-700 underline-offset-4 hover:decoration-amber-400"
+              >
+                TAPSH
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -165,18 +165,18 @@ export default function AdminBillingPage() {
       {/* Title & Status */}
       <div className="flex items-center justify-between no-print">
         <div>
-          <span className="text-xs uppercase tracking-widest text-amber-600 font-bold block">
+          <span className="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400 font-bold block">
             Express Counter POS
           </span>
-          <h1 className="font-serif text-2xl font-bold text-stone-900">
+          <h1 className="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100">
             Billing & Receipt Generation
           </h1>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <span className="text-xs text-stone-500 block">Printer Configured</span>
-            <span className="text-xs font-bold text-stone-800">
+            <span className="text-xs text-stone-500 dark:text-stone-400 block">Printer Configured</span>
+            <span className="text-xs font-bold text-stone-800 dark:text-stone-200">
               TVS RP 3200 LITE ({currentSettings.receiptPaperWidth})
             </span>
           </div>
@@ -184,8 +184,8 @@ export default function AdminBillingPage() {
           <span
             className={`px-3 py-1 rounded-full text-xs font-semibold ${
               currentSettings.taxEnabled
-                ? 'bg-amber-100 text-amber-800'
-                : 'bg-emerald-100 text-emerald-800'
+                ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300'
+                : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300'
             }`}
           >
             {currentSettings.taxEnabled ? 'GST Enabled' : 'Tax Disabled (Default)'}
@@ -194,7 +194,7 @@ export default function AdminBillingPage() {
       </div>
 
       {errorMsg && (
-        <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center justify-between no-print">
+        <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center justify-between no-print">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMsg}</span>
@@ -206,7 +206,7 @@ export default function AdminBillingPage() {
       )}
 
       {successMsg && (
-        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between no-print animate-in fade-in duration-200">
+        <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-between no-print animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
             <span className="font-semibold">{successMsg}</span>
@@ -222,7 +222,7 @@ export default function AdminBillingPage() {
         {/* LEFT COLUMN: Categories & Items (7 Cols) */}
         <div className="lg:col-span-7 space-y-4">
           {/* Search & Categories Bar */}
-          <div className="bg-white p-3 rounded-2xl border border-stone-200 shadow-xs space-y-3">
+          <div className="bg-white dark:bg-stone-900 p-3 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-xs space-y-3">
             <div className="relative">
               <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
@@ -230,7 +230,7 @@ export default function AdminBillingPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search food & beverages..."
-                className="w-full pl-9 pr-4 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                className="w-full pl-9 pr-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-700 text-xs sm:text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
 
@@ -242,7 +242,7 @@ export default function AdminBillingPage() {
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                   selectedCat === 'all'
                     ? 'bg-amber-600 text-white shadow-xs'
-                    : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                    : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                 }`}
               >
                 All Items
@@ -255,7 +255,7 @@ export default function AdminBillingPage() {
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                     selectedCat === c.id
                       ? 'bg-amber-600 text-white shadow-xs'
-                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                   }`}
                 >
                   {c.name}
@@ -276,8 +276,8 @@ export default function AdminBillingPage() {
                   onClick={() => addToCart(dish)}
                   className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all duration-150 active:scale-95 group relative ${
                     inCartQty > 0
-                      ? 'bg-amber-50/70 border-amber-300 ring-2 ring-amber-500/30 shadow-xs'
-                      : 'bg-white border-stone-200/90 hover:border-amber-300 hover:shadow-md'
+                      ? 'bg-amber-50/70 dark:bg-amber-950/40 border-amber-300 dark:border-amber-600 ring-2 ring-amber-500/30 shadow-xs'
+                      : 'bg-white dark:bg-stone-900 border-stone-200/90 dark:border-stone-800 hover:border-amber-300 dark:hover:border-amber-600 hover:shadow-md'
                   }`}
                 >
                   {/* Selected count pill */}
@@ -294,20 +294,20 @@ export default function AdminBillingPage() {
                           dish.isVeg ? 'bg-emerald-600' : 'bg-red-600'
                         }`}
                       />
-                      <span className="text-[10px] uppercase font-semibold text-stone-500">
+                      <span className="text-[10px] uppercase font-semibold text-stone-500 dark:text-stone-400">
                         {dish.isVeg ? 'Veg' : 'Non-Veg'}
                       </span>
                     </div>
-                    <h4 className="font-semibold text-xs sm:text-sm text-stone-900 group-hover:text-amber-700 transition-colors line-clamp-2 leading-tight">
+                    <h4 className="font-semibold text-xs sm:text-sm text-stone-900 dark:text-stone-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2 leading-tight">
                       {dish.name}
                     </h4>
                   </div>
 
-                  <div className="mt-3 pt-2 border-t border-stone-100 flex items-center justify-between">
-                    <span className="font-bold text-xs sm:text-sm text-amber-700">
+                  <div className="mt-3 pt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
+                    <span className="font-bold text-xs sm:text-sm text-amber-700 dark:text-amber-400">
                       {formatInr(dish.pricePaise)}
                     </span>
-                    <span className="w-5 h-5 rounded-md bg-stone-100 group-hover:bg-amber-600 group-hover:text-white flex items-center justify-center text-xs text-stone-600 transition-colors">
+                    <span className="w-5 h-5 rounded-md bg-stone-100 dark:bg-stone-800 group-hover:bg-amber-600 group-hover:text-white flex items-center justify-center text-xs text-stone-600 dark:text-stone-300 transition-colors">
                       +
                     </span>
                   </div>
@@ -318,18 +318,18 @@ export default function AdminBillingPage() {
         </div>
 
         {/* RIGHT COLUMN: Current Bill & Calculations (5 Cols) */}
-        <div className="lg:col-span-5 bg-white rounded-3xl border border-stone-200 shadow-sm p-5 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm p-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 border-b border-stone-200 mb-3">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800 mb-3">
               <div>
-                <h3 className="font-serif text-lg font-bold text-stone-900">Current Order</h3>
-                <span className="text-xs text-stone-500">{cart.length} items selected</span>
+                <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-stone-100">Current Order</h3>
+                <span className="text-xs text-stone-500 dark:text-stone-400">{cart.length} items selected</span>
               </div>
               {cart.length > 0 && (
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="text-xs font-semibold text-rose-600 hover:text-rose-700 flex items-center gap-1"
+                  className="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:text-rose-700 flex items-center gap-1"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Clear</span>
@@ -339,39 +339,39 @@ export default function AdminBillingPage() {
 
             {/* Cart Items List */}
             {cart.length === 0 ? (
-              <div className="py-16 text-center text-stone-400 text-xs">
+              <div className="py-16 text-center text-stone-400 dark:text-stone-500 text-xs">
                 Select items from the menu on the left to start building the bill.
               </div>
             ) : (
-              <div className="max-h-64 overflow-y-auto divide-y divide-stone-100 pos-scrollbar pr-1">
+              <div className="max-h-64 overflow-y-auto divide-y divide-stone-100 dark:divide-stone-800 pos-scrollbar pr-1">
                 {cart.map((ci) => (
                   <div key={ci.item.id} className="py-2.5 flex items-center justify-between gap-3 text-xs">
                     <div className="flex-1 min-w-0">
-                      <span className="font-semibold text-stone-900 truncate block">
+                      <span className="font-semibold text-stone-900 dark:text-stone-100 truncate block">
                         {ci.item.name}
                       </span>
-                      <span className="text-stone-500 font-mono">
+                      <span className="text-stone-500 dark:text-stone-400 font-mono">
                         {formatInr(ci.item.pricePaise)} × {ci.quantity}
                       </span>
                     </div>
 
                     {/* Quantity controls */}
-                    <div className="flex items-center gap-1.5 bg-stone-100 rounded-lg p-1 shrink-0">
+                    <div className="flex items-center gap-1.5 bg-stone-100 dark:bg-stone-800 rounded-lg p-1 shrink-0">
                       <button
                         type="button"
                         onClick={() => updateQuantity(ci.item.id, -1)}
-                        className="w-5 h-5 rounded bg-white text-stone-700 flex items-center justify-center hover:bg-stone-200"
+                        className="w-5 h-5 rounded bg-white dark:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center hover:bg-stone-200 dark:hover:bg-stone-600"
                         title="Decrease"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-6 text-center font-bold font-mono text-stone-900">
+                      <span className="w-6 text-center font-bold font-mono text-stone-900 dark:text-stone-100">
                         {ci.quantity}
                       </span>
                       <button
                         type="button"
                         onClick={() => updateQuantity(ci.item.id, 1)}
-                        className="w-5 h-5 rounded bg-white text-stone-700 flex items-center justify-center hover:bg-stone-200"
+                        className="w-5 h-5 rounded bg-white dark:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center hover:bg-stone-200 dark:hover:bg-stone-600"
                         title="Increase"
                       >
                         <Plus className="w-3 h-3" />
@@ -380,7 +380,7 @@ export default function AdminBillingPage() {
 
                     {/* Line total */}
                     <div className="text-right w-16 shrink-0">
-                      <span className="font-bold text-stone-900">
+                      <span className="font-bold text-stone-900 dark:text-stone-100">
                         {formatInr(ci.item.pricePaise * ci.quantity)}
                       </span>
                     </div>
@@ -400,17 +400,17 @@ export default function AdminBillingPage() {
           </div>
 
           {/* Calculations & Direct Checkout */}
-          <div className="pt-4 border-t border-stone-200 space-y-3 mt-4">
+          <div className="pt-4 border-t border-stone-200 dark:border-stone-800 space-y-3 mt-4">
             {/* If GST is enabled, show Subtotal and GST breakdown */}
             {billCalc.taxEnabled && billCalc.taxPaise > 0 && billCalc.taxBreakdown && (
               <>
-                <div className="flex items-center justify-between text-xs text-stone-600">
+                <div className="flex items-center justify-between text-xs text-stone-600 dark:text-stone-400">
                   <span>Subtotal ({billCalc.items.length} items):</span>
-                  <span className="font-semibold font-mono text-stone-900">
+                  <span className="font-semibold font-mono text-stone-900 dark:text-stone-100">
                     {formatInr(billCalc.subtotalPaise)}
                   </span>
                 </div>
-                <div className="space-y-1 text-xs text-stone-600 border-t border-dashed border-stone-200 pt-2">
+                <div className="space-y-1 text-xs text-stone-600 dark:text-stone-400 border-t border-dashed border-stone-200 dark:border-stone-800 pt-2">
                   <div className="flex items-center justify-between">
                     <span>CGST ({currentSettings.cgstPercent}%):</span>
                     <span>{formatInr(billCalc.taxBreakdown.cgstPaise)}</span>
@@ -424,16 +424,16 @@ export default function AdminBillingPage() {
             )}
 
             {/* Grand Total (Only line shown when GST is disabled; final total when GST is enabled) */}
-            <div className="flex items-center justify-between pt-2 border-t-2 border-stone-900 text-base font-bold text-stone-900">
+            <div className="flex items-center justify-between pt-2 border-t-2 border-stone-900 dark:border-stone-100 text-base font-bold text-stone-900 dark:text-stone-100">
               <span>Grand Total:</span>
-              <span className="font-serif text-xl text-amber-700">
+              <span className="font-serif text-xl text-amber-700 dark:text-amber-400">
                 {formatInr(billCalc.grandTotalPaise)}
               </span>
             </div>
 
             {/* Payment Method Selector */}
             <div className="space-y-2 pt-2">
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide">
                 Payment Method
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -442,8 +442,8 @@ export default function AdminBillingPage() {
                   onClick={() => setPaymentMethod('CASH')}
                   className={`p-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                     paymentMethod === 'CASH'
-                      ? 'bg-stone-900 text-white shadow-xs'
-                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                      ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-xs'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                   }`}
                 >
                   <Banknote className="w-3.5 h-3.5" />
@@ -454,8 +454,8 @@ export default function AdminBillingPage() {
                   onClick={() => setPaymentMethod('UPI')}
                   className={`p-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                     paymentMethod === 'UPI'
-                      ? 'bg-stone-900 text-white shadow-xs'
-                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                      ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-xs'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                   }`}
                 >
                   <QrCode className="w-3.5 h-3.5" />
@@ -466,8 +466,8 @@ export default function AdminBillingPage() {
                   onClick={() => setPaymentMethod('CARD')}
                   className={`p-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                     paymentMethod === 'CARD'
-                      ? 'bg-stone-900 text-white shadow-xs'
-                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                      ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-xs'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                   }`}
                 >
                   <CreditCard className="w-3.5 h-3.5" />

@@ -3,6 +3,7 @@ import './globals.css';
 import { AuthProvider } from '@/lib/auth';
 import FirebaseSyncProvider from '@/components/FirebaseSyncProvider';
 import CookieBanner from '@/components/public/CookieBanner';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://grand-line-red.vercel.app'),
@@ -45,14 +46,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased scroll-smooth">
-      <body className="min-h-full flex flex-col bg-[#faf8f5] text-[#1c1917]">
-        <AuthProvider>
-          <FirebaseSyncProvider>
-            {children}
-            <CookieBanner />
-          </FirebaseSyncProvider>
-        </AuthProvider>
+    <html lang="en" className="h-full antialiased scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('grandline_theme_preference');
+                  var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (stored === 'dark' || (stored !== 'light' && systemDark)) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-[#faf8f5] dark:bg-[#121214] text-[#1c1917] dark:text-[#f4f4f5] transition-colors duration-200">
+        <ThemeProvider>
+          <AuthProvider>
+            <FirebaseSyncProvider>
+              {children}
+              <CookieBanner />
+            </FirebaseSyncProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

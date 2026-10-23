@@ -17,7 +17,7 @@ interface SvgChartProps {
 export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps) {
   if (!data || data.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center bg-stone-50 rounded-2xl border border-stone-200 text-stone-400 text-sm">
+      <div className="h-64 flex items-center justify-center bg-stone-50 dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 text-stone-400 dark:text-stone-500 text-sm">
         No sales data recorded for this time range.
       </div>
     );
@@ -30,10 +30,10 @@ export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps
   const chartHeight = height - paddingBottom - paddingTop;
 
   return (
-    <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-xs">
+    <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-xs">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-serif text-base font-bold text-stone-900">{title}</h3>
-        <span className="text-xs text-stone-500 font-medium">Last 7 Days (₹ INR)</span>
+        <h3 className="font-serif text-base font-bold text-stone-900 dark:text-stone-100">{title}</h3>
+        <span className="text-xs text-stone-500 dark:text-stone-400 font-medium">Last 7 Days (₹ INR)</span>
       </div>
 
       <div className="w-full overflow-x-auto">
@@ -53,7 +53,7 @@ export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps
                     y1={y}
                     x2={data.length * 70 + 30}
                     y2={y}
-                    stroke="#f0ece6"
+                    className="stroke-stone-200 dark:stroke-stone-800"
                     strokeDasharray="4 4"
                     strokeWidth="1"
                   />
@@ -61,7 +61,7 @@ export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps
                     x="24"
                     y={y + 3}
                     textAnchor="end"
-                    className="text-[10px] fill-stone-400 font-mono"
+                    className="text-[10px] fill-stone-400 dark:fill-stone-500 font-mono"
                   >
                     {formatInr(labelPaise, true, false)}
                   </text>
@@ -85,7 +85,7 @@ export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps
                     width={barWidth}
                     height={barHeight}
                     rx="6"
-                    className="fill-amber-600 group-hover:fill-amber-500 transition-colors"
+                    className="fill-amber-600 dark:fill-amber-500 group-hover:fill-amber-500 dark:group-hover:fill-amber-400 transition-colors"
                   />
 
                   {/* Value on Hover / Top */}
@@ -93,7 +93,7 @@ export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps
                     x={x + barWidth / 2}
                     y={y - 6}
                     textAnchor="middle"
-                    className="text-[10px] font-bold fill-stone-800 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="text-[10px] font-bold fill-stone-800 dark:fill-stone-200 opacity-0 group-hover:opacity-100 transition-opacity"
                   >
                     {formatInr(point.amountPaise, true, false)}
                   </text>
@@ -103,7 +103,7 @@ export default function SvgChart({ data, title = 'Sales Trends' }: SvgChartProps
                     x={x + barWidth / 2}
                     y={height - 8}
                     textAnchor="middle"
-                    className="text-[11px] fill-stone-500 font-medium"
+                    className="text-[11px] fill-stone-500 dark:fill-stone-400 font-medium"
                   >
                     {point.label}
                   </text>

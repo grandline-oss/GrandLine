@@ -168,10 +168,10 @@ export default function AdminReportsPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
         <div>
-          <span className="text-xs uppercase tracking-widest text-amber-600 font-bold block mb-1">
+          <span className="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold block mb-1">
             Financial & Operational Insights
           </span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-white">
             Sales & Revenue Reports
           </h1>
         </div>
@@ -180,9 +180,9 @@ export default function AdminReportsPage() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="px-4 py-2 rounded-xl bg-white hover:bg-stone-50 border border-stone-200 text-stone-800 text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors"
+            className="px-4 py-2 rounded-xl bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors"
           >
-            <Download className="w-4 h-4 text-emerald-600" />
+            <Download className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>Export CSV</span>
           </button>
           <button
@@ -197,10 +197,10 @@ export default function AdminReportsPage() {
       </div>
 
       {/* Date Range Selector (Hidden on print) */}
-      <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs flex flex-wrap items-center justify-between gap-4 no-print">
+      <div className="bg-white dark:bg-stone-900 p-4 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-xs flex flex-wrap items-center justify-between gap-4 no-print">
         <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-amber-600" />
-          <span className="text-xs font-bold uppercase tracking-wider text-stone-700">Period:</span>
+          <Calendar className="w-4 h-4 text-amber-600 dark:text-amber-500" />
+          <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">Period:</span>
           {(['today', '7days', '30days', 'custom'] as const).map((r) => (
             <button
               key={r}
@@ -208,8 +208,8 @@ export default function AdminReportsPage() {
               onClick={() => setDateRange(r)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 dateRange === r
-                  ? 'bg-stone-900 text-white shadow-xs'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                  ? 'bg-stone-900 dark:bg-amber-600 text-white shadow-xs'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-700'
               }`}
             >
               {r === 'today' && 'Today'}
@@ -226,14 +226,14 @@ export default function AdminReportsPage() {
               type="date"
               value={customStartDate}
               onChange={(e) => setCustomStartDate(e.target.value)}
-              className="px-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50"
+              className="px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100"
             />
-            <span className="text-stone-400">to</span>
+            <span className="text-stone-400 dark:text-stone-500">to</span>
             <input
               type="date"
               value={customEndDate}
               onChange={(e) => setCustomEndDate(e.target.value)}
-              className="px-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50"
+              className="px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100"
             />
           </div>
         )}
@@ -241,48 +241,48 @@ export default function AdminReportsPage() {
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-stone-500 block mb-1">
+        <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
+          <span className="text-xs font-semibold uppercase text-stone-500 dark:text-stone-400 block mb-1">
             Net Realized Sales
           </span>
-          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900">
+          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900 dark:text-white">
             {formatInr(netSalesPaise)}
           </div>
-          <span className="text-xs text-stone-400 mt-1 block">
+          <span className="text-xs text-stone-400 dark:text-stone-500 mt-1 block">
             Subtotal: {formatInr(grossSalesPaise)} | Dis: -{formatInr(totalDiscountPaise)}
           </span>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-stone-500 block mb-1">
+        <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
+          <span className="text-xs font-semibold uppercase text-stone-500 dark:text-stone-400 block mb-1">
             Completed Invoices
           </span>
-          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900">
+          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900 dark:text-white">
             {completedBillsCount}
           </div>
-          <span className="text-xs text-rose-600 mt-1 block">
+          <span className="text-xs text-rose-600 dark:text-rose-400 mt-1 block">
             {cancelledInvoices.length} cancelled bills excluded
           </span>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-stone-500 block mb-1">
+        <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
+          <span className="text-xs font-semibold uppercase text-stone-500 dark:text-stone-400 block mb-1">
             Average Ticket Size
           </span>
-          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900">
+          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900 dark:text-white">
             {formatInr(avgBillPaise)}
           </div>
-          <span className="text-xs text-stone-400 mt-1 block">Per completed transaction</span>
+          <span className="text-xs text-stone-400 dark:text-stone-500 mt-1 block">Per completed transaction</span>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-stone-500 block mb-1">
+        <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
+          <span className="text-xs font-semibold uppercase text-stone-500 dark:text-stone-400 block mb-1">
             Tax Collected
           </span>
-          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900">
+          <div className="text-2xl sm:text-3xl font-bold font-serif text-stone-900 dark:text-white">
             {formatInr(totalTaxPaise)}
           </div>
-          <span className="text-xs text-stone-400 mt-1 block">
+          <span className="text-xs text-stone-400 dark:text-stone-500 mt-1 block">
             {settings?.taxEnabled ? 'GST Active' : 'GST Disabled (Zero Tax)'}
           </span>
         </div>
@@ -296,33 +296,33 @@ export default function AdminReportsPage() {
       {/* Item-wise Sales & Payment Mode Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Item Sales Table (2 cols) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-stone-200 p-6 shadow-xs">
-          <h3 className="font-serif text-base font-bold text-stone-900 mb-4">
+        <div className="lg:col-span-2 bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs">
+          <h3 className="font-serif text-base font-bold text-stone-900 dark:text-white mb-4">
             Dish Performance & Quantity Sold
           </h3>
 
           {itemSummaryList.length === 0 ? (
-            <p className="text-xs text-stone-400 py-6">No dish sales in this period.</p>
+            <p className="text-xs text-stone-400 dark:text-stone-500 py-6">No dish sales in this period.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-stone-200 text-stone-500 uppercase font-semibold">
+                  <tr className="border-b border-stone-200 dark:border-stone-800 text-stone-500 dark:text-stone-400 uppercase font-semibold">
                     <th className="pb-3">Rank</th>
                     <th className="pb-3">Dish Name</th>
                     <th className="pb-3 text-center">Quantity Sold</th>
                     <th className="pb-3 text-right">Total Revenue</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-100">
+                <tbody className="divide-y divide-stone-100 dark:divide-stone-800/80">
                   {itemSummaryList.map((item, idx) => (
-                    <tr key={item.name} className="hover:bg-stone-50/50">
-                      <td className="py-2.5 font-bold text-stone-400 w-12">{idx + 1}</td>
-                      <td className="py-2.5 font-semibold text-stone-900">{item.name}</td>
-                      <td className="py-2.5 text-center font-bold text-stone-800">
+                    <tr key={item.name} className="hover:bg-stone-50/50 dark:hover:bg-stone-800/40">
+                      <td className="py-2.5 font-bold text-stone-400 dark:text-stone-500 w-12">{idx + 1}</td>
+                      <td className="py-2.5 font-semibold text-stone-900 dark:text-stone-100">{item.name}</td>
+                      <td className="py-2.5 text-center font-bold text-stone-800 dark:text-stone-200">
                         {item.quantity}
                       </td>
-                      <td className="py-2.5 text-right font-mono font-bold text-stone-900">
+                      <td className="py-2.5 text-right font-mono font-bold text-stone-900 dark:text-stone-100">
                         {formatInr(item.revenuePaise)}
                       </td>
                     </tr>
@@ -334,8 +334,8 @@ export default function AdminReportsPage() {
         </div>
 
         {/* Payment Methods Breakdown */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs">
-          <h3 className="font-serif text-base font-bold text-stone-900 mb-4">
+        <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs">
+          <h3 className="font-serif text-base font-bold text-stone-900 dark:text-white mb-4">
             Payment Mode Realization
           </h3>
 
@@ -346,20 +346,20 @@ export default function AdminReportsPage() {
                 netSalesPaise > 0 ? Math.round((info.totalPaise / netSalesPaise) * 100) : 0;
 
               return (
-                <div key={mode} className="space-y-1.5 pb-3 border-b border-stone-100 last:border-none">
+                <div key={mode} className="space-y-1.5 pb-3 border-b border-stone-100 dark:border-stone-800/80 last:border-none">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-stone-800">{mode}</span>
-                    <span className="font-bold text-stone-900 font-mono">
+                    <span className="font-semibold text-stone-800 dark:text-stone-200">{mode}</span>
+                    <span className="font-bold text-stone-900 dark:text-stone-100 font-mono">
                       {formatInr(info.totalPaise)}
                     </span>
                   </div>
-                  <div className="w-full bg-stone-100 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-stone-100 dark:bg-stone-800 rounded-full h-2 overflow-hidden">
                     <div
-                      className="bg-amber-600 h-full rounded-full transition-all duration-500"
+                      className="bg-amber-600 dark:bg-amber-500 h-full rounded-full transition-all duration-500"
                       style={{ width: `${percent}%` }}
                     />
                   </div>
-                  <div className="flex justify-between text-[10px] text-stone-400">
+                  <div className="flex justify-between text-[10px] text-stone-400 dark:text-stone-500">
                     <span>{info.count} bills</span>
                     <span>{percent}% of total sales</span>
                   </div>

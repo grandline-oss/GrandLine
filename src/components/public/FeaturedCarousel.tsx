@@ -18,26 +18,26 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
   }
 
   return (
-    <section className="py-20 bg-[#faf8f5]">
+    <section className="py-20 bg-[#faf8f5] dark:bg-[#121214] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-600 mb-2">
-              <Star className="w-3.5 h-3.5 fill-amber-600" />
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2">
+              <Star className="w-3.5 h-3.5 fill-amber-600 dark:fill-amber-400" />
               <span>Featured Items</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
               Featured Items
             </h2>
-            <p className="mt-2 text-stone-600 max-w-xl text-sm sm:text-base">
+            <p className="mt-2 text-stone-600 dark:text-stone-400 max-w-xl text-sm sm:text-base">
               Discover dishes currently highlighted on our menu.
             </p>
           </div>
           <div className="mt-4 md:mt-0">
             <Link
               href="/menu"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 transition-colors group"
             >
               <span>Explore Our Menu</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -50,10 +50,10 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
           {featured.map((dish) => (
             <div
               key={dish.id}
-              className="group bg-white rounded-2xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col hover:-translate-y-1"
+              className="group bg-white dark:bg-stone-900 rounded-2xl overflow-hidden border border-stone-200/80 dark:border-stone-800 shadow-sm hover:shadow-xl dark:shadow-stone-950/50 transition-all duration-300 flex flex-col hover:-translate-y-1"
             >
               {/* Image Container with Restrained Zoom */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-800">
                 <img
                   src={dish.imageUrl}
                   alt={dish.name}
@@ -61,13 +61,13 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
                   loading="lazy"
                 />
                 {/* Diet Badge */}
-                <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 text-xs font-semibold">
+                <div className="absolute top-3 right-3 bg-white/95 dark:bg-stone-900/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 text-xs font-semibold border border-stone-200/60 dark:border-stone-700/60">
                   <span
                     className={`w-2 h-2 rounded-full ${
                       dish.isVeg ? 'bg-emerald-600' : 'bg-red-600'
                     }`}
                   />
-                  <span className="text-stone-700">
+                  <span className="text-stone-700 dark:text-stone-300">
                     {dish.isVeg ? 'Vegetarian' : 'Non-Veg'}
                   </span>
                 </div>
@@ -77,23 +77,23 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-amber-700 transition-colors">
+                    <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                       {dish.name}
                     </h3>
-                    <span className="font-semibold text-base text-amber-700 whitespace-nowrap">
+                    <span className="font-semibold text-base text-amber-600 dark:text-amber-400 whitespace-nowrap">
                       {formatInr(dish.pricePaise)}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                  <p className="mt-2 text-xs sm:text-sm text-stone-600 dark:text-stone-400 line-clamp-2 leading-relaxed">
                     {dish.description}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                  <span className="text-emerald-700 font-medium">Available</span>
+                <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-emerald-700 dark:text-emerald-400 font-medium">Available</span>
                   <Link
                     href="/menu"
-                    className="font-medium text-amber-600 hover:text-amber-700"
+                    className="font-medium text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300"
                   >
                     View in Menu &rarr;
                   </Link>

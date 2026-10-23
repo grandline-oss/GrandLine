@@ -9,6 +9,7 @@ import { RestaurantSettings } from '@/lib/types';
 import { Menu, Receipt, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function AdminLayout({
   children,
@@ -52,7 +53,7 @@ export default function AdminLayout({
   const currentSettings = settings || getSettings();
 
   return (
-    <div className="min-h-screen flex bg-stone-100 text-stone-900">
+    <div className="min-h-screen flex bg-stone-100 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-200">
       {/* Sidebar */}
       <AdminSidebar
         settings={currentSettings}
@@ -88,6 +89,7 @@ export default function AdminLayout({
           </div>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle variant="icon" />
             <Link
               href="/admin/billing"
               className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm"

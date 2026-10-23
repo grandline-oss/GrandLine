@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, Phone, Shield } from 'lucide-react';
 import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,6 +93,10 @@ export default function Header() {
             >
               Explore Menu
             </Link>
+            <ThemeToggle
+              variant="icon"
+              className="border-stone-800 bg-stone-900/90 text-stone-300 hover:text-amber-400"
+            />
             <Link
               href="/admin"
               title="Staff & Management Portal"
@@ -103,6 +108,10 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
+            <ThemeToggle
+              variant="icon"
+              className="border-stone-800 bg-stone-900/90 text-stone-300 hover:text-amber-400"
+            />
             <Link
               href="/admin"
               className="p-2 text-stone-400 hover:text-white"

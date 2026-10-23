@@ -89,23 +89,23 @@ export default function AdminSettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs uppercase tracking-widest text-amber-600 font-bold block mb-1">
+          <span className="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold block mb-1">
             System Preferences & Identity
           </span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-white">
             Restaurant Settings
           </h1>
         </div>
 
         {/* Tab switchers */}
-        <div className="bg-stone-200/80 p-1 rounded-xl flex items-center text-xs font-semibold">
+        <div className="bg-stone-200/80 dark:bg-stone-800 p-1 rounded-xl flex items-center text-xs font-semibold">
           <button
             type="button"
             onClick={() => setActiveTab('profile')}
             className={`px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
               activeTab === 'profile'
-                ? 'bg-white text-stone-900 shadow-xs'
-                : 'text-stone-600 hover:text-stone-900'
+                ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-white shadow-xs'
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
             }`}
           >
             <Building2 className="w-3.5 h-3.5" />
@@ -116,8 +116,8 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab('billing')}
             className={`px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
               activeTab === 'billing'
-                ? 'bg-white text-stone-900 shadow-xs'
-                : 'text-stone-600 hover:text-stone-900'
+                ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-white shadow-xs'
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
             }`}
           >
             <Receipt className="w-3.5 h-3.5" />
@@ -128,8 +128,8 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab('account')}
             className={`px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
               activeTab === 'account'
-                ? 'bg-white text-stone-900 shadow-xs'
-                : 'text-stone-600 hover:text-stone-900'
+                ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-white shadow-xs'
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
             }`}
           >
             <Shield className="w-3.5 h-3.5" />
@@ -139,15 +139,15 @@ export default function AdminSettingsPage() {
       </div>
 
       {saveSuccess && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs flex items-center gap-2">
+          <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <span>Settings saved! Public website and billing parameters have been updated.</span>
         </div>
       )}
 
       {saveError && (
-        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+        <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
           <span>{saveError}</span>
         </div>
       )}
@@ -155,14 +155,14 @@ export default function AdminSettingsPage() {
       {/* TAB 1: RESTAURANT PROFILE & WEBSITE CONTENT */}
       {activeTab === 'profile' && (
         <form onSubmit={handleSaveProfileOrBilling} className="space-y-6">
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-5">
-            <h3 className="font-serif text-lg font-bold text-stone-900 border-b border-stone-100 pb-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs space-y-5">
+            <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white border-b border-stone-100 dark:border-stone-800 pb-3">
               Restaurant Brand & Identity
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Restaurant Name *
                 </label>
                 <input
@@ -170,144 +170,144 @@ export default function AdminSettingsPage() {
                   required
                   value={settings.name}
                   onChange={(e) => setSettings({ ...settings, name: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Brand Tagline
                 </label>
                 <input
                   type="text"
                   value={settings.tagline}
                   onChange={(e) => setSettings({ ...settings, tagline: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Homepage Hero Introduction
               </label>
               <textarea
                 rows={2}
                 value={settings.description}
                 onChange={(e) => setSettings({ ...settings, description: e.target.value })}
-                className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 About Us Story Narrative
               </label>
               <textarea
                 rows={3}
                 value={settings.story}
                 onChange={(e) => setSettings({ ...settings, story: e.target.value })}
-                className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Hero Background Photograph URL
               </label>
               <input
                 type="url"
                 value={settings.heroImageUrl}
                 onChange={(e) => setSettings({ ...settings, heroImageUrl: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
           </div>
 
           {/* Contact & Hours */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-5">
-            <h3 className="font-serif text-lg font-bold text-stone-900 border-b border-stone-100 pb-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs space-y-5">
+            <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white border-b border-stone-100 dark:border-stone-800 pb-3">
               Location, Contact & Service Hours
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Public Phone Number
                 </label>
                 <input
                   type="text"
                   value={settings.phone}
                   onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   WhatsApp Contact Number
                 </label>
                 <input
                   type="text"
                   value={settings.whatsapp}
                   onChange={(e) => setSettings({ ...settings, whatsapp: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Email Address
                 </label>
                 <input
                   type="email"
                   value={settings.email}
                   onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Service Hours
                 </label>
                 <input
                   type="text"
                   value={settings.openingHours}
                   onChange={(e) => setSettings({ ...settings, openingHours: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Full Physical Address
               </label>
               <textarea
                 rows={2}
                 value={settings.address}
                 onChange={(e) => setSettings({ ...settings, address: e.target.value })}
-                className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Google Maps Directions URL
               </label>
               <input
                 type="url"
                 value={settings.googleMapsUrl}
                 onChange={(e) => setSettings({ ...settings, googleMapsUrl: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-sm flex items-center gap-2 active:scale-95"
+            className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-sm flex items-center gap-2 active:scale-95 transition-all"
           >
             <Save className="w-4 h-4" />
             <span>Save Profile & Content Changes</span>
@@ -318,14 +318,14 @@ export default function AdminSettingsPage() {
       {/* TAB 2: BILLING, TAX & THERMAL PRINTER SETTINGS */}
       {activeTab === 'billing' && (
         <form onSubmit={handleSaveProfileOrBilling} className="space-y-6">
-          {/* Tax Configuration - Strict GST Disabled by default enforcement */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-5">
-            <div className="flex items-start justify-between border-b border-stone-100 pb-3">
+          {/* Tax Configuration */}
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs space-y-5">
+            <div className="flex items-start justify-between border-b border-stone-100 dark:border-stone-800 pb-3">
               <div>
-                <h3 className="font-serif text-lg font-bold text-stone-900">
+                <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
                   GST & Tax Configuration
                 </h3>
-                <p className="text-xs text-stone-500">
+                <p className="text-xs text-stone-500 dark:text-stone-400">
                   Per the restaurant agreement, GST is disabled by default for the initial setup.
                 </p>
               </div>
@@ -338,26 +338,26 @@ export default function AdminSettingsPage() {
                   onChange={(e) => setSettings({ ...settings, taxEnabled: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-stone-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+                <div className="w-11 h-6 bg-stone-300 dark:bg-stone-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
               </label>
             </div>
 
             {!settings.taxEnabled ? (
-              <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-700 space-y-1">
-                <span className="font-bold text-stone-900 block">GST is Currently Disabled (Default)</span>
+              <div className="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 text-xs text-stone-700 dark:text-stone-300 space-y-1">
+                <span className="font-bold text-stone-900 dark:text-white block">GST is Currently Disabled (Default)</span>
                 <p>
                   No GST, CGST, SGST, IGST, or 0% tax rows will appear on bills or thermal receipts. Only Subtotal and Grand Total are displayed.
                 </p>
               </div>
             ) : (
               <div className="space-y-4 pt-2">
-                <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs">
+                <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs">
                   Tax is enabled. Configured CGST and SGST percentages will be calculated on future invoices. (Previously issued invoices remain unchanged).
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                       CGST Rate (%)
                     </label>
                     <input
@@ -371,12 +371,12 @@ export default function AdminSettingsPage() {
                           cgstPercent: parseFloat(e.target.value) || 0,
                         })
                       }
-                      className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm"
+                      className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                       SGST Rate (%)
                     </label>
                     <input
@@ -390,19 +390,19 @@ export default function AdminSettingsPage() {
                           sgstPercent: parseFloat(e.target.value) || 0,
                         })
                       }
-                      className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm"
+                      className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                       GSTIN Number
                     </label>
                     <input
                       type="text"
                       value={settings.gstin}
                       onChange={(e) => setSettings({ ...settings, gstin: e.target.value })}
-                      className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm"
+                      className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
                     />
                   </div>
                 </div>
@@ -411,14 +411,14 @@ export default function AdminSettingsPage() {
           </div>
 
           {/* Thermal Printer TVS RP 3200 LITE Settings */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-5">
-            <div className="flex items-center gap-3 border-b border-stone-100 pb-3">
-              <Printer className="w-5 h-5 text-amber-600" />
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs space-y-5">
+            <div className="flex items-center gap-3 border-b border-stone-100 dark:border-stone-800 pb-3">
+              <Printer className="w-5 h-5 text-amber-600 dark:text-amber-500" />
               <div>
-                <h3 className="font-serif text-lg font-bold text-stone-900">
+                <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
                   Thermal Receipt Printer (TVS RP 3200 LITE)
                 </h3>
-                <p className="text-xs text-stone-500">
+                <p className="text-xs text-stone-500 dark:text-stone-400">
                   Optimized for black-text thermal roll printing via standard Windows printer drivers.
                 </p>
               </div>
@@ -426,7 +426,7 @@ export default function AdminSettingsPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Thermal Paper Width
                 </label>
                 <select
@@ -437,7 +437,7 @@ export default function AdminSettingsPage() {
                       receiptPaperWidth: e.target.value as ReceiptPaperWidth,
                     })
                   }
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
                 >
                   <option value="80mm">80 mm (Standard TVS RP 3200 LITE roll)</option>
                   <option value="58mm">58 mm (Compact roll)</option>
@@ -445,46 +445,46 @@ export default function AdminSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                   Bill Number Format
                 </label>
                 <input
                   type="text"
                   readOnly
                   value="GL-MM/YY-0001 (Sequential Auto-Generated, Monthly Reset)"
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm bg-stone-50 text-stone-700 font-mono text-xs cursor-not-allowed"
+                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 text-sm bg-stone-50 dark:bg-stone-800/60 text-stone-700 dark:text-stone-300 font-mono text-xs cursor-not-allowed"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Receipt Header Lines
               </label>
               <textarea
                 rows={2}
                 value={settings.receiptHeader}
                 onChange={(e) => setSettings({ ...settings, receiptHeader: e.target.value })}
-                className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm font-mono text-xs"
+                className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 font-mono text-xs"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Receipt Footer Greetings
               </label>
               <textarea
                 rows={2}
                 value={settings.receiptFooter}
                 onChange={(e) => setSettings({ ...settings, receiptFooter: e.target.value })}
-                className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm font-mono text-xs"
+                className="w-full px-4 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100 font-mono text-xs"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-sm flex items-center gap-2 active:scale-95"
+            className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-sm flex items-center gap-2 active:scale-95 transition-all"
           >
             <Save className="w-4 h-4" />
             <span>Save Billing & Printer Parameters</span>
@@ -494,14 +494,14 @@ export default function AdminSettingsPage() {
 
       {/* TAB 3: STAFF ACCOUNT CREDENTIALS */}
       {activeTab === 'account' && (
-        <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs max-w-xl space-y-6">
-          <div className="border-b border-stone-100 pb-3 flex items-center gap-3">
-            <Lock className="w-5 h-5 text-amber-600" />
+        <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs max-w-xl space-y-6">
+          <div className="border-b border-stone-100 dark:border-stone-800 pb-3 flex items-center gap-3">
+            <Lock className="w-5 h-5 text-amber-600 dark:text-amber-500" />
             <div>
-              <h3 className="font-serif text-lg font-bold text-stone-900">
+              <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
                 Staff Account & Security
               </h3>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-stone-500 dark:text-stone-400">
                 Update the administrator credentials for dashboard and POS access.
               </p>
             </div>
@@ -511,14 +511,14 @@ export default function AdminSettingsPage() {
             <div
               className={`p-3.5 rounded-xl text-xs flex items-center gap-2 ${
                 passMessage.type === 'success'
-                  ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-                  : 'bg-rose-50 border border-rose-200 text-rose-800'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300'
+                  : 'bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300'
               }`}
             >
               {passMessage.type === 'success' ? (
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               ) : (
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
               )}
               <span>{passMessage.text}</span>
             </div>
@@ -526,7 +526,7 @@ export default function AdminSettingsPage() {
 
           <form onSubmit={handlePasswordChange} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Administrator Email
               </label>
               <input
@@ -534,12 +534,12 @@ export default function AdminSettingsPage() {
                 required
                 value={accountEmail}
                 onChange={(e) => setAccountEmail(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 New Password
               </label>
               <input
@@ -547,12 +547,12 @@ export default function AdminSettingsPage() {
                 required
                 value={newPass}
                 onChange={(e) => setNewPass(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
                 Confirm New Password
               </label>
               <input
@@ -560,13 +560,13 @@ export default function AdminSettingsPage() {
                 required
                 value={confirmPass}
                 onChange={(e) => setConfirmPass(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm text-stone-900 dark:text-stone-100"
               />
             </div>
 
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs uppercase tracking-wide shadow-sm active:scale-95"
+              className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs uppercase tracking-wide shadow-sm active:scale-95 transition-all"
             >
               Update Credentials
             </button>

@@ -18,7 +18,7 @@ export default function AboutPage() {
   const restaurantName = settings?.name || 'GRAND LINE CAFÉ & RESTAURANT';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5]">
+    <div className="min-h-screen flex flex-col bg-[#faf8f5] dark:bg-[#121214] text-[#1c1917] dark:text-[#f4f4f5] transition-colors duration-200">
       <Header />
 
       <main className="flex-1">
@@ -39,19 +39,19 @@ export default function AboutPage() {
 
         {/* Narrative Section */}
         <section className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl p-8 sm:p-14 border border-stone-200/90 shadow-xs space-y-8">
+          <div className="bg-white dark:bg-stone-900 rounded-3xl p-8 sm:p-14 border border-stone-200/90 dark:border-stone-800 shadow-xs space-y-8">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 block mb-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-2">
                 Our Restaurant
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-stone-100">
                 Welcome to {restaurantName}
               </h2>
             </div>
 
-            <div className="space-y-5 text-stone-600 text-base sm:text-lg leading-relaxed border-t border-stone-100 pt-6">
+            <div className="space-y-5 text-stone-600 dark:text-stone-300 text-base sm:text-lg leading-relaxed border-t border-stone-100 dark:border-stone-800 pt-6">
               {settings?.story ? (
-                <p className="text-stone-700">{settings.story}</p>
+                <p className="text-stone-700 dark:text-stone-300">{settings.story}</p>
               ) : (
                 <p>
                   Welcome to {restaurantName}. We are dedicated to providing our guests with a welcoming dining environment and a variety of food and beverage options.
@@ -59,16 +59,16 @@ export default function AboutPage() {
               )}
 
               {settings?.philosophy ? (
-                <p className="text-stone-700">{settings.philosophy}</p>
+                <p className="text-stone-700 dark:text-stone-300">{settings.philosophy}</p>
               ) : (
-                <p className="text-stone-600 text-base">
+                <p className="text-stone-600 dark:text-stone-400 text-base">
                   Discover the food and beverages available on our menu, or visit our location to dine with us.
                 </p>
               )}
             </div>
 
             {/* Quick Action Navigation */}
-            <div className="pt-4 flex flex-wrap items-center gap-4 border-t border-stone-100">
+            <div className="pt-4 flex flex-wrap items-center gap-4 border-t border-stone-100 dark:border-stone-800">
               <Link
                 href="/menu"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-md transition-all active:scale-95"
@@ -78,9 +78,9 @@ export default function AboutPage() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium text-sm transition-all active:scale-95"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 font-medium text-sm transition-all active:scale-95"
               >
-                <MapPin className="w-4 h-4 text-amber-700" />
+                <MapPin className="w-4 h-4 text-amber-700 dark:text-amber-400" />
                 <span>Find Us & Contact</span>
               </Link>
             </div>
@@ -92,34 +92,34 @@ export default function AboutPage() {
           <section className="pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {settings?.address && (
-                <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+                <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center mb-4">
                     <MapPin className="w-5 h-5" />
                   </div>
-                  <h3 className="font-serif text-base font-bold text-stone-900 mb-1">Location</h3>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">{settings.address}</p>
+                  <h3 className="font-serif text-base font-bold text-stone-900 dark:text-stone-100 mb-1">Location</h3>
+                  <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">{settings.address}</p>
                 </div>
               )}
 
               {settings?.openingHours && (
-                <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+                <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center mb-4">
                     <Clock className="w-5 h-5" />
                   </div>
-                  <h3 className="font-serif text-base font-bold text-stone-900 mb-1">Opening Hours</h3>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">{settings.openingHours}</p>
+                  <h3 className="font-serif text-base font-bold text-stone-900 dark:text-stone-100 mb-1">Opening Hours</h3>
+                  <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">{settings.openingHours}</p>
                 </div>
               )}
 
               {settings?.phone && (
-                <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+                <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center mb-4">
                     <Phone className="w-5 h-5" />
                   </div>
-                  <h3 className="font-serif text-base font-bold text-stone-900 mb-1">Phone</h3>
+                  <h3 className="font-serif text-base font-bold text-stone-900 dark:text-stone-100 mb-1">Phone</h3>
                   <a
                     href={`tel:${settings.phone.replace(/\s+/g, '')}`}
-                    className="text-xs sm:text-sm text-stone-600 hover:text-amber-700 leading-relaxed block"
+                    className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 hover:text-amber-600 dark:hover:text-amber-400 leading-relaxed block"
                   >
                     {settings.phone}
                   </a>

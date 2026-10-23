@@ -28,7 +28,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5]">
+    <div className="min-h-screen flex flex-col bg-[#faf8f5] dark:bg-[#121214] text-[#1c1917] dark:text-[#f4f4f5] transition-colors duration-200">
       <Header />
 
       <main className="flex-1">
@@ -73,7 +73,7 @@ export default function HomePage() {
         )}
 
         {/* Visit & Contact Strip */}
-        <section className="py-16 bg-[#faf8f5]">
+        <section className="py-16 bg-[#faf8f5] dark:bg-[#121214] transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-stone-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-stone-800 flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="space-y-4 max-w-xl">

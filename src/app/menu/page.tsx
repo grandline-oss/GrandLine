@@ -52,7 +52,7 @@ export default function MenuPage() {
   }, [menuItems, selectedCategory, dietFilter, searchQuery]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5]">
+    <div className="min-h-screen flex flex-col bg-[#faf8f5] dark:bg-[#121214] text-[#1c1917] dark:text-[#f4f4f5] transition-colors duration-200">
       <Header />
 
       <main className="flex-1">
@@ -72,7 +72,7 @@ export default function MenuPage() {
         </section>
 
         {/* Filter and Search Bar */}
-        <section className="sticky top-20 z-30 bg-[#faf8f5]/95 backdrop-blur-md border-b border-stone-200 py-4 shadow-xs">
+        <section className="sticky top-20 z-30 bg-[#faf8f5]/95 dark:bg-[#121214]/95 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 py-4 shadow-xs transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Category Pills */}
@@ -83,7 +83,7 @@ export default function MenuPage() {
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
                     selectedCategory === 'all'
                       ? 'bg-amber-600 text-white shadow-sm'
-                      : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                      : 'bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-700'
                   }`}
                 >
                   All Items ({menuItems.length})
@@ -96,7 +96,7 @@ export default function MenuPage() {
                     className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
                       selectedCategory === cat.id
                         ? 'bg-amber-600 text-white shadow-sm'
-                        : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                        : 'bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-700'
                     }`}
                   >
                     {cat.name}
@@ -112,13 +112,14 @@ export default function MenuPage() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                    placeholder="Search menu..."
+                    className="w-full pl-9 pr-4 py-2 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs sm:text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                   />
                   {searchQuery && (
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 dark:hover:text-stone-200"
                     >
                       Clear
                     </button>
@@ -126,14 +127,14 @@ export default function MenuPage() {
                 </div>
 
                 {/* Diet Filter Buttons */}
-                <div className="flex items-center rounded-xl bg-white border border-stone-200 p-1 shrink-0">
+                <div className="flex items-center rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 p-1 shrink-0">
                   <button
                     type="button"
                     onClick={() => setDietFilter('all')}
                     className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-colors ${
                       dietFilter === 'all'
-                        ? 'bg-stone-900 text-white'
-                        : 'text-stone-600 hover:text-stone-900'
+                        ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
+                        : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
                     }`}
                   >
                     All
@@ -143,8 +144,8 @@ export default function MenuPage() {
                     onClick={() => setDietFilter('veg')}
                     className={`px-2.5 py-1 text-xs font-medium rounded-lg flex items-center gap-1 transition-colors ${
                       dietFilter === 'veg'
-                        ? 'bg-emerald-700 text-white'
-                        : 'text-emerald-700 hover:bg-emerald-50'
+                        ? 'bg-emerald-700 text-white font-semibold'
+                        : 'text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40'
                     }`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -155,8 +156,8 @@ export default function MenuPage() {
                     onClick={() => setDietFilter('nonveg')}
                     className={`px-2.5 py-1 text-xs font-medium rounded-lg flex items-center gap-1 transition-colors ${
                       dietFilter === 'nonveg'
-                        ? 'bg-red-700 text-white'
-                        : 'text-red-700 hover:bg-red-50'
+                        ? 'bg-red-700 text-white font-semibold'
+                        : 'text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40'
                     }`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
@@ -173,18 +174,18 @@ export default function MenuPage() {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3, 4, 5, 6].map((n) => (
-                <div key={n} className="bg-white rounded-2xl h-80 animate-pulse border border-stone-200" />
+                <div key={n} className="bg-white dark:bg-stone-900 rounded-2xl h-80 animate-pulse border border-stone-200 dark:border-stone-800" />
               ))}
             </div>
           ) : filteredItems.length === 0 ? (
-            <div className="text-center py-24 bg-white rounded-3xl border border-stone-200 max-w-xl mx-auto p-8">
-              <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4">
+            <div className="text-center py-24 bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 max-w-xl mx-auto p-8 shadow-xs">
+              <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto mb-4">
                 <Utensils className="w-6 h-6" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-stone-900 mb-2">
+              <h3 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">
                 {menuItems.length === 0 ? 'Our Menu' : 'No Dishes Match Your Selection'}
               </h3>
-              <p className="text-stone-600 text-sm mb-6">
+              <p className="text-stone-600 dark:text-stone-400 text-sm mb-6">
                 {menuItems.length === 0
                   ? 'Our menu is being updated. Please check back soon.'
                   : 'Try adjusting your search terms or clearing the active category and dietary filters.'}
@@ -197,7 +198,7 @@ export default function MenuPage() {
                     setDietFilter('all');
                     setSearchQuery('');
                   }}
-                  className="px-5 py-2.5 rounded-xl bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-sm font-semibold hover:bg-stone-800 dark:hover:bg-stone-200 transition-colors"
                 >
                   Reset All Filters
                 </button>
@@ -208,12 +209,12 @@ export default function MenuPage() {
               {filteredItems.map((dish) => (
                 <div
                   key={dish.id}
-                  className={`group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col ${
+                  className={`group bg-white dark:bg-stone-900 rounded-2xl overflow-hidden border border-stone-200/90 dark:border-stone-800 shadow-xs hover:shadow-xl dark:shadow-stone-950/50 transition-all duration-300 flex flex-col ${
                     !dish.isAvailable ? 'opacity-60 grayscale-[0.6]' : 'hover:-translate-y-1'
                   }`}
                 >
                   {/* Dish Image */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-800">
                     <img
                       src={dish.imageUrl}
                       alt={dish.name}
@@ -222,13 +223,13 @@ export default function MenuPage() {
                     />
 
                     {/* Vegetarian Indicator */}
-                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 text-xs font-semibold">
+                    <div className="absolute top-3 right-3 bg-white/95 dark:bg-stone-900/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 text-xs font-semibold border border-stone-200/60 dark:border-stone-700/60">
                       <span
                         className={`w-2 h-2 rounded-full ${
                           dish.isVeg ? 'bg-emerald-600' : 'bg-red-600'
                         }`}
                       />
-                      <span className="text-stone-700">
+                      <span className="text-stone-700 dark:text-stone-300">
                         {dish.isVeg ? 'Veg' : 'Non-Veg'}
                       </span>
                     </div>
@@ -255,24 +256,24 @@ export default function MenuPage() {
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex items-start justify-between gap-3 mb-2">
-                        <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-amber-700 transition-colors">
+                        <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                           {dish.name}
                         </h3>
-                        <span className="font-bold text-base text-amber-700 whitespace-nowrap">
+                        <span className="font-bold text-base text-amber-700 dark:text-amber-400 whitespace-nowrap">
                           {formatInr(dish.pricePaise)}
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm text-stone-600 leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed line-clamp-3">
                         {dish.description}
                       </p>
                     </div>
 
-                    <div className="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+                    <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
                       <span>
                         {dish.isAvailable ? (
-                          <span className="text-emerald-700 font-medium">Available</span>
+                          <span className="text-emerald-700 dark:text-emerald-400 font-medium">Available</span>
                         ) : (
-                          <span className="text-stone-400 font-medium">Unavailable</span>
+                          <span className="text-stone-400 dark:text-stone-500 font-medium">Unavailable</span>
                         )}
                       </span>
                     </div>
@@ -284,12 +285,12 @@ export default function MenuPage() {
         </section>
 
         {/* Note on Dietary Preferences */}
-        <section className="py-12 bg-white border-t border-stone-200">
+        <section className="py-12 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 transition-colors">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h3 className="font-serif text-xl font-bold text-stone-900 mb-2">
+            <h3 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">
               Dietary or Allergy Preferences?
             </h3>
-            <p className="text-sm text-stone-600 leading-relaxed">
+            <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
               Please inform your server of any dietary requirements or food allergies before ordering.
             </p>
           </div>
