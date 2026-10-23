@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/lib/auth';
 import FirebaseSyncProvider from '@/components/FirebaseSyncProvider';
+import CookieBanner from '@/components/public/CookieBanner';
 
 export const metadata: Metadata = {
   title: 'GrandLine Fine Dine & Cafe | Artisanal Coastal & Indian Cuisine',
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased scroll-smooth">
       <body className="min-h-full flex flex-col bg-[#faf8f5] text-[#1c1917]">
         <AuthProvider>
-          <FirebaseSyncProvider>{children}</FirebaseSyncProvider>
+          <FirebaseSyncProvider>
+            {children}
+            <CookieBanner />
+          </FirebaseSyncProvider>
         </AuthProvider>
       </body>
     </html>

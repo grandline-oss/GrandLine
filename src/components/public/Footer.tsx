@@ -141,11 +141,21 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar: Primary Restaurant Copyright & Subtle TAPSH Credit */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <p>
-            &copy; {currentYear} {restaurantName}. All rights reserved.
-          </p>
+        {/* Bottom Bar: Primary Restaurant Copyright, Legal Links & Subtle TAPSH Credit */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+          <div className="flex flex-wrap items-center gap-3">
+            <p>
+              &copy; {currentYear} {restaurantName}. All rights reserved.
+            </p>
+            <span className="hidden sm:inline text-stone-700">•</span>
+            <Link href="/privacy" className="hover:text-stone-300 transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="hidden sm:inline text-stone-700">•</span>
+            <Link href="/terms" className="hover:text-stone-300 transition-colors">
+              Terms & Conditions
+            </Link>
+          </div>
 
           {/* TAPSH developer credit - Strict adherence: small, secondary, linking to https://tapsh.in/ */}
           <div className="text-stone-400 tracking-wide text-xs">

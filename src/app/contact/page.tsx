@@ -7,9 +7,14 @@ import { getSettings } from '@/lib/storage';
 import { RestaurantSettings } from '@/lib/types';
 import { MapPin, Phone, Mail, Clock, MessageSquare, ExternalLink, CheckCircle } from 'lucide-react';
 
+import { checkRateLimit, recordFailedAttempt } from '@/lib/security';
+import Link from 'next/link';
+
 export default function ContactPage() {
   const [settings, setSettings] = useState<RestaurantSettings | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState('');
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -26,7 +31,34 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.phone) return;
+    setErrorMsg(null);
+
+    // 1. Anti-spam bot trap (honeypot)
+    if (honeypot.trim() !== '') {
+      // Silently discard automated bot submission
+      setSubmitted(true);
+      return;
+    }
+
+    // 2. Client & Session Rate Limiting
+    const rateCheck = checkRateLimit('contact_inquiry', 4, 10 * 60 * 1000, 5 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      setErrorMsg(`Too many inquiries submitted. Please wait ${rateCheck.waitSeconds}s or call us directly.`);
+      return;
+    }
+
+    // 3. Validation
+    if (!form.name.trim() || !form.phone.trim()) {
+      setErrorMsg('Please enter both your name and contact phone number.');
+      return;
+    }
+
+    if (form.phone.replace(/\D/g, '').length < 8) {
+      setErrorMsg('Please enter a valid phone number with area/country code.');
+      return;
+    }
+
+    recordFailedAttempt('contact_inquiry', 4, 5 * 60 * 1000);
     setSubmitted(true);
   };
 
@@ -187,6 +219,25 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {errorMsg && (
+                    <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium">
+                      {errorMsg}
+                    </div>
+                  )}
+
+                  {/* Honeypot field for spam prevention - hidden from humans */}
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="website_check">Leave empty</label>
+                    <input
+                      id="website_check"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1.5">
                       Your Name *
@@ -254,6 +305,14 @@ export default function ContactPage() {
                       className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
                     />
                   </div>
+
+                  {/* Privacy Notice */}
+                  <p className="text-[11px] text-stone-500 leading-normal pt-1">
+                    Your details are used solely to confirm this table inquiry. We never send spam or share your number. See our{' '}
+                    <Link href="/privacy" className="text-amber-700 underline underline-offset-2">
+                      Privacy Policy
+                    </Link>.
+                  </p>
 
                   <button
                     type="submit"
