@@ -57,15 +57,15 @@ export default function MenuPage() {
 
       <main className="flex-1">
         {/* Menu Hero Banner */}
-        <section className="bg-stone-900 text-white py-16 sm:py-20 border-b border-stone-800">
+        <section className="bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-white py-16 sm:py-20 border-b border-stone-200 dark:border-stone-800 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="text-xs uppercase tracking-widest text-amber-500 font-bold block mb-2">
+            <span className="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold block mb-2">
               EXPLORE OUR MENU
             </span>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-white mb-4">
               Our Menu
             </h1>
-            <p className="max-w-2xl mx-auto text-stone-300 text-sm sm:text-base leading-relaxed">
+            <p className="max-w-2xl mx-auto text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
               Discover the food and beverages available at GRAND LINE CAFÉ & RESTAURANT. Browse our menu to explore the items and prices currently offered.
             </p>
           </div>

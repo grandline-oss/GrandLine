@@ -23,15 +23,15 @@ export default function AboutPage() {
 
       <main className="flex-1">
         {/* Banner */}
-        <section className="bg-stone-900 text-white py-16 sm:py-24 border-b border-stone-800">
+        <section className="bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-white py-16 sm:py-24 border-b border-stone-200 dark:border-stone-800 transition-colors">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="text-xs uppercase tracking-widest text-amber-500 font-bold block mb-3">
+            <span className="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold block mb-3">
               ABOUT US
             </span>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white mb-6">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-white mb-6">
               About {restaurantName}
             </h1>
-            <p className="text-stone-300 text-base sm:text-lg leading-relaxed font-light">
+            <p className="text-stone-600 dark:text-stone-300 text-base sm:text-lg leading-relaxed font-light">
               {settings?.tagline || 'YOUR JOURNEY BEGINS HERE'}
             </p>
           </div>

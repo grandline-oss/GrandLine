@@ -27,12 +27,12 @@ export default function Header() {
   const logoSrc = settings?.logoUrl || '/brand/grand-line-logo.jpg';
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#121110]/95 backdrop-blur-md border-b border-amber-900/30 text-stone-100 transition-all shadow-md">
+    <header className="sticky top-0 z-40 w-full bg-[#faf8f5]/95 dark:bg-[#121110]/95 backdrop-blur-md border-b border-stone-200/90 dark:border-amber-900/30 text-stone-900 dark:text-stone-100 transition-colors shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 sm:h-22">
           {/* Official Restaurant Brand Identity */}
           <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-amber-500/40 shadow-lg shadow-black/80 shrink-0 bg-black group-hover:border-amber-400 group-hover:shadow-amber-500/20 transition-all">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-amber-500/40 shadow-xs dark:shadow-lg dark:shadow-black/80 shrink-0 bg-stone-100 dark:bg-black group-hover:border-amber-500 transition-all">
               <Image
                 src={logoSrc}
                 alt="GRAND LINE CAFÉ & RESTAURANT"
@@ -43,10 +43,10 @@ export default function Header() {
               />
             </div>
             <div>
-              <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-white block leading-tight group-hover:text-amber-400 transition-colors uppercase">
+              <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-stone-900 dark:text-white block leading-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors uppercase">
                 GRAND LINE
               </span>
-              <span className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-semibold block">
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400 font-semibold block">
                 Café & Restaurant
               </span>
             </div>
@@ -62,13 +62,13 @@ export default function Header() {
                   href={link.href}
                   className={`text-sm font-medium tracking-wide transition-colors py-1 relative ${
                     isActive
-                      ? 'text-amber-400'
-                      : 'text-stone-300 hover:text-white'
+                      ? 'text-amber-600 dark:text-amber-400 font-semibold'
+                      : 'text-stone-600 hover:text-stone-900 dark:text-stone-300 dark:hover:text-white'
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-amber-400 rounded-full" />
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-amber-600 dark:bg-amber-400 rounded-full" />
                   )}
                 </Link>
               );
@@ -80,9 +80,9 @@ export default function Header() {
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone.replace(/\s+/g, '')}`}
-                className="flex items-center gap-2 text-xs font-semibold text-stone-300 hover:text-amber-400 transition-colors px-3 py-2 rounded-lg bg-stone-900 border border-stone-800"
+                className="flex items-center gap-2 text-xs font-semibold text-stone-700 hover:text-amber-700 dark:text-stone-300 dark:hover:text-amber-400 transition-colors px-3 py-2 rounded-lg bg-stone-100 hover:bg-stone-200/70 dark:bg-stone-900 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-800"
               >
-                <Phone className="w-3.5 h-3.5 text-amber-500" />
+                <Phone className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500" />
                 <span>{settings.phone}</span>
               </a>
             )}
@@ -95,7 +95,7 @@ export default function Header() {
             <Link
               href="/admin"
               title="Staff & Management Portal"
-              className="p-2 text-stone-500 hover:text-stone-300 transition-colors rounded-lg hover:bg-stone-800/60"
+              className="p-2 text-stone-400 hover:text-stone-700 hover:bg-stone-100 dark:text-stone-500 dark:hover:text-stone-300 dark:hover:bg-stone-800/60 transition-colors rounded-lg"
             >
               <Shield className="w-4 h-4" />
             </Link>
@@ -105,7 +105,7 @@ export default function Header() {
           <div className="flex md:hidden items-center gap-2">
             <Link
               href="/admin"
-              className="p-2 text-stone-400 hover:text-white"
+              className="p-2 text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white"
               title="Staff Portal"
             >
               <Shield className="w-4 h-4" />
@@ -113,7 +113,7 @@ export default function Header() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="p-2 rounded-lg text-stone-400 hover:text-white hover:bg-stone-800 focus:outline-none"
+              className="p-2 rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-stone-400 dark:hover:text-white dark:hover:bg-stone-800 focus:outline-none"
               aria-label="Toggle Navigation"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -124,7 +124,7 @@ export default function Header() {
 
       {/* Mobile Navigation Drawer */}
       {isOpen && (
-        <div className="md:hidden bg-stone-950 border-b border-stone-800 px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="md:hidden bg-[#faf8f5] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col space-y-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -135,8 +135,8 @@ export default function Header() {
                   onClick={() => setIsOpen(false)}
                   className={`px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
                     isActive
-                      ? 'bg-amber-500/10 text-amber-400 font-semibold'
-                      : 'text-stone-300 hover:bg-stone-900 hover:text-white'
+                      ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold'
+                      : 'text-stone-700 hover:bg-stone-100 hover:text-stone-900 dark:text-stone-300 dark:hover:bg-stone-900 dark:hover:text-white'
                   }`}
                 >
                   {link.name}
@@ -145,13 +145,13 @@ export default function Header() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-stone-800 flex flex-col gap-3">
+          <div className="pt-4 border-t border-stone-200 dark:border-stone-800 flex flex-col gap-3">
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone.replace(/\s+/g, '')}`}
-                className="flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-stone-300 bg-stone-900 border border-stone-800 rounded-lg"
+                className="flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-stone-700 dark:text-stone-300 bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-lg"
               >
-                <Phone className="w-4 h-4 text-amber-500" />
+                <Phone className="w-4 h-4 text-amber-600 dark:text-amber-500" />
                 {settings.phone}
               </a>
             )}

@@ -63,17 +63,17 @@ export default function AdminLayout({
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Mobile / Screen Header (hidden when printing) */}
-        <header className="lg:hidden no-print sticky top-0 z-30 bg-stone-950 text-white px-4 py-3 flex items-center justify-between border-b border-stone-800">
+        <header className="lg:hidden no-print sticky top-0 z-30 bg-white dark:bg-stone-950 text-stone-900 dark:text-white px-4 py-3 flex items-center justify-between border-b border-stone-200 dark:border-stone-800 transition-colors">
           <div className="flex items-center gap-2.5">
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-lg text-stone-400 hover:text-white hover:bg-stone-800"
+              className="p-2 rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-stone-400 dark:hover:text-white dark:hover:bg-stone-800"
               aria-label="Open Navigation Menu"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-amber-500/30 bg-black shrink-0">
+            <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-amber-500/30 bg-stone-100 dark:bg-black shrink-0">
               <Image
                 src="/brand/grand-line-logo.jpg"
                 alt="GRAND LINE"
@@ -82,7 +82,7 @@ export default function AdminLayout({
                 className="object-cover w-full h-full"
               />
             </div>
-            <span className="font-serif font-bold text-sm text-white truncate max-w-[170px] uppercase tracking-wide">
+            <span className="font-serif font-bold text-sm text-stone-900 dark:text-white truncate max-w-[170px] uppercase tracking-wide">
               GRAND LINE
             </span>
           </div>

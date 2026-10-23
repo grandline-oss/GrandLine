@@ -46,8 +46,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">2. Menu, Pricing & Allergen Information</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">2. Menu, Pricing & Allergen Information</h2>
             <p>
               All menu listings, items, and prices are subject to change based on kitchen and market availability. While our kitchen team takes meticulous care regarding preparation, guests with food allergies must inform service staff prior to ordering.
             </p>
@@ -56,33 +56,33 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">3. Table Inquiries & Reservations</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">3. Table Inquiries & Reservations</h2>
             <p>
               Online or telephone table reservations are held for up to 15 minutes past the reserved time during peak dining hours before being released to walk-in patrons. Please notify us promptly if your schedule changes.
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">4. Billing & Refund Policy</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">4. Billing & Refund Policy</h2>
             <p>
               Our website serves as an informational menu presentation platform; transactions and payment settlements occur in-person at the restaurant cash counter via Cash, UPI, or Card. If an item does not meet standards or an error occurs in the bill, please bring it to the attention of the restaurant manager immediately before settling the bill for resolution or adjustment.
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">5. Intellectual Property</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">5. Intellectual Property</h2>
             <p>
               The GRAND LINE CAFÉ & RESTAURANT trademark, logo, food photography, menu descriptions, and website branding are the intellectual property of GRAND LINE CAFÉ & RESTAURANT. Unauthorized reproduction or commercial use is prohibited without prior written consent.
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">6. Contact for Inquiries</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">6. Contact for Inquiries</h2>
             <p>For questions or inquiries regarding these terms, reach us at:</p>
-            <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs space-y-1">
+            <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 text-xs space-y-1">
               <p><strong>GRAND LINE CAFÉ & RESTAURANT</strong></p>
-              <p>Email: <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 underline font-medium">grandlinecaferestaurant@gmail.com</a></p>
+              <p>Email: <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 dark:text-amber-400 underline font-medium">grandlinecaferestaurant@gmail.com</a></p>
             </div>
           </section>
         </div>

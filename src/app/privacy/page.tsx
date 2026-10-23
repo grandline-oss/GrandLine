@@ -46,8 +46,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">2. Information We Collect</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">2. Information We Collect</h2>
             <p>
               We adhere strictly to data minimization and collect only what is essential to provide restaurant services:
             </p>
@@ -64,8 +64,8 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">3. Purpose and Legal Basis for Processing</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">3. Purpose and Legal Basis for Processing</h2>
             <p>Your data is processed strictly for:</p>
             <ul className="list-disc pl-5 space-y-2">
               <li>Facilitating dining table inquiries and responding to customer questions.</li>
@@ -77,8 +77,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">4. Third-Party Service Providers</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">4. Third-Party Service Providers</h2>
             <p>
               We utilize trusted cloud service providers to maintain operations:
             </p>
@@ -91,21 +91,21 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">5. Data Retention & Security</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">5. Data Retention & Security</h2>
             <p>
               We retain billing and invoice records in accordance with statutory accounting and commercial tax record requirements. Contact form inquiries are purged after fulfillment. Technical measures include TLS 1.3 in-transit encryption, strict Content Security Policy, and rate-limiting.
             </p>
           </section>
 
-          <section className="space-y-4 text-stone-700 leading-relaxed text-sm">
-            <h2 className="font-serif text-xl font-bold text-stone-900">6. Your Rights & Privacy Requests</h2>
+          <section className="space-y-4 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
+            <h2 className="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">6. Your Rights & Privacy Requests</h2>
             <p>
               You have the right to request access to, correction of, or deletion of your personal contact records (subject to statutory accounting retention exemptions). To exercise these rights, please contact our administration at:
             </p>
-            <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs space-y-1">
+            <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 text-xs space-y-1">
               <p><strong>GRAND LINE CAFÉ & RESTAURANT</strong></p>
-              <p>Email: <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 underline font-medium">grandlinecaferestaurant@gmail.com</a></p>
+              <p>Email: <a href="mailto:grandlinecaferestaurant@gmail.com" className="text-amber-700 dark:text-amber-400 underline font-medium">grandlinecaferestaurant@gmail.com</a></p>
             </div>
           </section>
         </div>

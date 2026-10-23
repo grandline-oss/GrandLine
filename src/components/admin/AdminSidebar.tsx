@@ -42,10 +42,10 @@ export default function AdminSidebar({
   ];
 
   const sidebarContent = (
-    <div className="h-full flex flex-col justify-between bg-stone-950 text-stone-300 border-r border-stone-800">
+    <div className="h-full flex flex-col justify-between bg-white dark:bg-stone-950 text-stone-700 dark:text-stone-300 border-r border-stone-200 dark:border-stone-800 transition-colors">
       {/* Brand Header */}
       <div>
-        <div className="p-6 border-b border-stone-800">
+        <div className="p-6 border-b border-stone-200 dark:border-stone-800">
           <Link href="/admin" className="flex items-center gap-3">
             <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-amber-500/40 bg-black shrink-0 shadow-md">
               <Image
@@ -57,10 +57,10 @@ export default function AdminSidebar({
               />
             </div>
             <div className="overflow-hidden">
-              <h1 className="font-serif text-base font-bold text-white truncate uppercase tracking-wide">
+              <h1 className="font-serif text-base font-bold text-stone-900 dark:text-white truncate uppercase tracking-wide">
                 GRAND LINE
               </h1>
-              <span className="text-[10px] uppercase tracking-wider text-amber-400 font-semibold block truncate">
+              <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-semibold block truncate">
                 Café & Restaurant POS
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function AdminSidebar({
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   isActive
                     ? 'bg-amber-600 text-white font-semibold shadow-sm'
-                    : 'text-stone-400 hover:text-white hover:bg-stone-900'
+                    : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-stone-400 dark:hover:text-white dark:hover:bg-stone-900'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -99,13 +99,13 @@ export default function AdminSidebar({
       </div>
 
       {/* User Info & Footer Actions */}
-      <div className="p-4 border-t border-stone-800 space-y-3">
-        <div className="px-3 py-2 rounded-xl bg-stone-900/80 border border-stone-800 text-xs">
-          <span className="text-stone-400 block text-[11px]">Logged in as</span>
-          <span className="text-white font-semibold truncate block">
+      <div className="p-4 border-t border-stone-200 dark:border-stone-800 space-y-3">
+        <div className="px-3 py-2 rounded-xl bg-stone-50 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 text-xs">
+          <span className="text-stone-500 dark:text-stone-400 block text-[11px]">Logged in as</span>
+          <span className="text-stone-900 dark:text-white font-semibold truncate block">
             {user?.email || 'grandlinecaferestaurant@gmail.com'}
           </span>
-          <span className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">
+          <span className="text-[10px] text-amber-600 dark:text-amber-400 uppercase font-bold tracking-wider">
             {user?.role || 'Administrator'}
           </span>
         </div>
@@ -115,16 +115,16 @@ export default function AdminSidebar({
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-stone-400 hover:text-white hover:bg-stone-900 rounded-lg transition-colors"
+            className="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-stone-400 dark:hover:text-white dark:hover:bg-stone-900 rounded-lg transition-colors"
           >
-            <ExternalLink className="w-3.5 h-3.5 text-stone-400" />
+            <ExternalLink className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
             <span>Open Public Website</span>
           </Link>
 
           <button
             type="button"
             onClick={logout}
-            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 rounded-lg transition-colors"
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:text-rose-400 dark:hover:text-rose-300 dark:hover:bg-rose-950/30 rounded-lg transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
