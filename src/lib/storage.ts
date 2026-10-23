@@ -88,7 +88,16 @@ function writeToStorage<T>(key: string, data: T): void {
 
 // ---------------- RESTAURANT SETTINGS ----------------
 export function getSettings(): RestaurantSettings {
-  return readFromStorage<RestaurantSettings>(SETTINGS_KEY, DEFAULT_SETTINGS);
+  const current = readFromStorage<RestaurantSettings>(SETTINGS_KEY, DEFAULT_SETTINGS);
+  if (
+    current.receiptFooter &&
+    (current.receiptFooter.includes('***') ||
+      current.receiptFooter.toLowerCase().includes('thank you for your visit'))
+  ) {
+    current.receiptFooter = 'Thank You! Visit Again!';
+    writeToStorage(SETTINGS_KEY, current);
+  }
+  return current;
 }
 
 export function saveSettings(settings: RestaurantSettings): RestaurantSettings {

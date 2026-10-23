@@ -91,11 +91,11 @@ export default function ThermalReceipt({
             <p className="whitespace-pre-line text-[11px] text-black/90 mt-0.5">
               {settings.receiptHeader}
             </p>
-          ) : (
+          ) : settings.address ? (
             <p className="text-[11px] text-black/90 mt-0.5">
               {settings.address}
             </p>
-          )}
+          ) : null}
           {settings.phone && (
             <p className="text-[11px]">Tel: {settings.phone}</p>
           )}
