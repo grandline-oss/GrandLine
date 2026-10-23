@@ -410,6 +410,26 @@ export function cancelInvoice(invoiceId: string, reason: string): Invoice | null
   return updated;
 }
 
+export function deleteInvoice(invoiceId: string): boolean {
+  const invoices = getInvoices();
+  const target = invoices.find((i) => i.id === invoiceId || i.invoiceNumber === invoiceId);
+  const targetId = target ? target.id : invoiceId;
+
+  const filtered = invoices.filter((i) => i.id !== targetId && i.invoiceNumber !== targetId);
+  writeToStorage(INVOICES_KEY, filtered);
+
+  if (db) {
+    try {
+      const docRef = doc(db, 'invoices', targetId);
+      deleteDoc(docRef).catch((err) => console.warn('Firestore invoice delete warning:', err));
+    } catch (e) {
+      console.warn('Firestore invoice delete error:', e);
+    }
+  }
+
+  return true;
+}
+
 /**
  * Initializes Firestore cloud listeners to keep data in sync across all screens
  */

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { getInvoices, cancelInvoice, getSettings } from '@/lib/storage';
+import { getInvoices, cancelInvoice, deleteInvoice, getSettings } from '@/lib/storage';
 import { Invoice, RestaurantSettings } from '@/lib/types';
 import { formatInr } from '@/lib/currency';
 import ThermalReceipt from '@/components/billing/ThermalReceipt';
@@ -18,6 +18,7 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Trash2,
 } from 'lucide-react';
 
 export default function AdminBillingHistoryPage() {
@@ -42,6 +43,11 @@ export default function AdminBillingHistoryPage() {
   const [cancellingInvoice, setCancellingInvoice] = useState<Invoice | null>(null);
   const [cancellationReason, setCancellationReason] = useState('');
   const [cancelError, setCancelError] = useState<string | null>(null);
+
+  // Deletion Modal (for demo/test bills)
+  const [deletingInvoice, setDeletingInvoice] = useState<Invoice | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteSuccessMsg, setDeleteSuccessMsg] = useState<string | null>(null);
 
   const loadData = () => {
     setInvoices(getInvoices());
@@ -111,6 +117,22 @@ export default function AdminBillingHistoryPage() {
     }
   };
 
+  const handleConfirmDelete = () => {
+    if (!deletingInvoice) return;
+    setIsDeleting(true);
+    try {
+      deleteInvoice(deletingInvoice.id);
+      loadData();
+      setDeleteSuccessMsg(`Bill ${deletingInvoice.invoiceNumber} permanently deleted.`);
+      setTimeout(() => setDeleteSuccessMsg(null), 4000);
+      setDeletingInvoice(null);
+    } catch (e) {
+      console.error('Delete invoice error:', e);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   const currentSettings = settings || getSettings();
 
   return (
@@ -129,6 +151,23 @@ export default function AdminBillingHistoryPage() {
           Showing <strong>{filteredInvoices.length}</strong> recorded bills
         </div>
       </div>
+
+      {/* Delete Success Alert */}
+      {deleteSuccessMsg && (
+        <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center justify-between no-print shadow-xs animate-in fade-in">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>{deleteSuccessMsg}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setDeleteSuccessMsg(null)}
+            className="p-1 text-emerald-700 hover:text-emerald-900 rounded-lg"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Filter and Search Bar */}
       <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs space-y-3 no-print">
@@ -259,7 +298,7 @@ export default function AdminBillingHistoryPage() {
                       </span>
                     </td>
                     <td className="py-3 px-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1.5">
                         <button
                           type="button"
                           onClick={() => handleReprint(inv)}
@@ -274,12 +313,21 @@ export default function AdminBillingHistoryPage() {
                           <button
                             type="button"
                             onClick={() => openCancelModal(inv)}
-                            className="p-1 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                            className="p-1.5 rounded-lg text-stone-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
                             title="Cancel Bill with Reason"
                           >
                             <Ban className="w-3.5 h-3.5" />
                           </button>
                         )}
+
+                        <button
+                          type="button"
+                          onClick={() => setDeletingInvoice(inv)}
+                          className="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                          title="Delete Bill (Demo / Mistake)"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -389,6 +437,102 @@ export default function AdminBillingHistoryPage() {
                 className="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-sm"
               >
                 Confirm Cancellation
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PERMANENT DELETE CONFIRMATION MODAL */}
+      {deletingInvoice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-xs no-print">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200 animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200 mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-rose-100 flex items-center justify-center shrink-0">
+                  <Trash2 className="w-5 h-5 text-rose-600" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-stone-900 leading-tight">
+                    Delete Bill Record
+                  </h3>
+                  <span className="text-[11px] text-stone-500">
+                    Demo & Audit Record Management
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDeletingInvoice(null)}
+                className="p-1.5 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="bg-rose-50/70 border border-rose-200/70 rounded-2xl p-4 mb-5 text-xs text-rose-950 space-y-3">
+              <p className="font-semibold text-rose-900">
+                Are you sure you want to permanently delete this bill?
+              </p>
+
+              <div className="bg-white rounded-xl p-3 border border-rose-200/60 space-y-1.5 font-mono text-stone-800 text-[11px] shadow-2xs">
+                <div className="flex justify-between items-center">
+                  <span className="text-stone-500 font-sans">Bill Number:</span>
+                  <strong className="text-stone-950">{deletingInvoice.invoiceNumber}</strong>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-stone-500 font-sans">Amount:</span>
+                  <strong className="text-stone-950">{formatInr(deletingInvoice.grandTotalPaise)}</strong>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-stone-500 font-sans">Date:</span>
+                  <span className="text-stone-700 text-[10px]">
+                    {new Date(deletingInvoice.createdAt).toLocaleString('en-IN', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-stone-500 font-sans">Status:</span>
+                  <span
+                    className={`font-sans font-bold text-[10px] px-2 py-0.5 rounded-full ${
+                      deletingInvoice.paymentStatus === 'COMPLETED'
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : 'bg-rose-100 text-rose-800'
+                    }`}
+                  >
+                    {deletingInvoice.paymentStatus}
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-[11px] text-rose-700 leading-relaxed">
+                ⚠️ <strong>Warning:</strong> This action cannot be undone. This demo bill will be permanently removed from storage and reports.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => setDeletingInvoice(null)}
+                className="px-4 py-2.5 rounded-xl border border-stone-200 text-xs font-semibold text-stone-700 hover:bg-stone-50 active:scale-95 disabled:opacity-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={handleConfirmDelete}
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-md active:scale-95 disabled:opacity-50 flex items-center gap-1.5 transition-all"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>{isDeleting ? 'Deleting...' : 'Yes, Delete Bill'}</span>
               </button>
             </div>
           </div>
