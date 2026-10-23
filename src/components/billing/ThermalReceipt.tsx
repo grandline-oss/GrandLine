@@ -31,10 +31,13 @@ export default function ThermalReceipt({
   const paperWidthClass =
     settings.receiptPaperWidth === '58mm' ? 'max-w-[58mm]' : 'max-w-[80mm]';
 
-  const formattedDate = new Date(invoice.createdAt).toLocaleString('en-IN', {
+  const invoiceDateObj = new Date(invoice.createdAt);
+  const formattedDate = invoiceDateObj.toLocaleDateString('en-IN', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
+  });
+  const formattedTime = invoiceDateObj.toLocaleTimeString('en-IN', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,
@@ -103,18 +106,18 @@ export default function ThermalReceipt({
         </div>
 
         {/* Invoice Meta */}
-        <div className="py-2 border-b border-black border-dashed text-[11px]">
-          <div className="flex justify-between">
+        <div className="py-2 border-b border-black border-dashed text-[11px] space-y-1">
+          <div className="flex justify-between items-center">
             <span>Bill No: <strong>{invoice.invoiceNumber}</strong></span>
-            <span>Date: {formattedDate}</span>
-          </div>
-          <div className="flex justify-between mt-0.5">
             <span>Pay Mode: <strong>{invoice.paymentMethod}</strong></span>
-            <span>Cashier: {invoice.cashierName || 'Admin'}</span>
+          </div>
+          <div className="flex justify-between items-center text-[10px]">
+            <span>Date: <strong>{formattedDate}</strong></span>
+            <span>Time: <strong>{formattedTime}</strong></span>
           </div>
           {invoice.paymentStatus !== 'COMPLETED' && (
             <div className="text-center font-bold uppercase mt-1 text-[11px] border border-black p-0.5">
-              *** {invoice.paymentStatus} ***
+              Status: {invoice.paymentStatus}
             </div>
           )}
         </div>
@@ -184,9 +187,8 @@ export default function ThermalReceipt({
         </div>
 
         {/* Footer Section */}
-        <div className="text-center pt-2 text-[10px] space-y-1">
-          <p className="whitespace-pre-line font-medium">{settings.receiptFooter}</p>
-          <p className="text-[9px] text-black/70 mt-1">*** Thank You! Visit Again ***</p>
+        <div className="text-center pt-3 text-[11px] font-bold tracking-wide">
+          <p>Thank You! Visit Again!</p>
         </div>
       </div>
     </div>

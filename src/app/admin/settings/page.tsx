@@ -446,13 +446,13 @@ export default function AdminSettingsPage() {
 
               <div>
                 <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wide mb-1">
-                  Invoice Prefix
+                  Bill Number Format
                 </label>
                 <input
                   type="text"
-                  value={settings.invoicePrefix}
-                  onChange={(e) => setSettings({ ...settings, invoicePrefix: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm"
+                  readOnly
+                  value="GL-MMYY-0001 (Sequential Auto-Generated)"
+                  className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm bg-stone-50 text-stone-700 font-mono text-xs cursor-not-allowed"
                 />
               </div>
             </div>

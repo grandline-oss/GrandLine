@@ -40,7 +40,7 @@ export const DEFAULT_SETTINGS: RestaurantSettings = {
   heroImageUrl: '',
   currency: 'INR',
   currencySymbol: '₹',
-  invoicePrefix: 'INV-',
+  invoicePrefix: 'GL-',
   nextInvoiceNumber: 1,
   taxEnabled: false, // GST disabled by default
   cgstPercent: 2.5,
@@ -48,7 +48,7 @@ export const DEFAULT_SETTINGS: RestaurantSettings = {
   gstin: '',
   discountEnabled: true,
   receiptHeader: '',
-  receiptFooter: 'Thank you for your visit! Please visit again.',
+  receiptFooter: 'Thank You! Visit Again!',
   receiptPaperWidth: '80mm',
   acceptedPaymentMethods: ['CASH', 'UPI', 'CARD', 'OTHER'],
   updatedAt: new Date().toISOString(),
@@ -259,6 +259,41 @@ export interface CreateInvoiceParams {
   cashierName?: string;
 }
 
+/**
+ * Automatically generates a sequential, unique bill number in the format: GL-MMYY-0001
+ * E.g., GL-1026-0001 for October 2026.
+ * Guarantees that issued bill numbers are never duplicated or reused.
+ */
+export function generateNextInvoiceNumber(existingInvoices: Invoice[]): string {
+  const now = new Date();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yy = String(now.getFullYear()).slice(-2);
+  const prefix = `GL-${mm}${yy}-`;
+
+  let maxSeq = 0;
+  for (const inv of existingInvoices) {
+    if (inv.invoiceNumber && inv.invoiceNumber.startsWith(prefix)) {
+      const parts = inv.invoiceNumber.split('-');
+      const numPart = parts[parts.length - 1];
+      const seq = parseInt(numPart, 10);
+      if (!isNaN(seq) && seq > maxSeq) {
+        maxSeq = seq;
+      }
+    }
+  }
+
+  let nextSeq = maxSeq + 1;
+  let candidate = `${prefix}${String(nextSeq).padStart(4, '0')}`;
+
+  const existingNumbers = new Set(existingInvoices.map((inv) => inv.invoiceNumber));
+  while (existingNumbers.has(candidate)) {
+    nextSeq++;
+    candidate = `${prefix}${String(nextSeq).padStart(4, '0')}`;
+  }
+
+  return candidate;
+}
+
 export function createInvoice(params: CreateInvoiceParams): { success: boolean; invoice?: Invoice; error?: string } {
   try {
     const settings = getSettings();
@@ -289,13 +324,8 @@ export function createInvoice(params: CreateInvoiceParams): { success: boolean; 
       settings.sgstPercent
     );
 
-    const currentNum = settings.nextInvoiceNumber || 1;
-    const invoiceNumber = `${settings.invoicePrefix || 'INV-'}${currentNum.toString().padStart(4, '0')}`;
-
-    saveSettings({
-      ...settings,
-      nextInvoiceNumber: currentNum + 1,
-    });
+    const existingInvoices = getInvoices();
+    const invoiceNumber = generateNextInvoiceNumber(existingInvoices);
 
     let changeDuePaise: number | undefined = undefined;
     if (params.paymentMethod === 'CASH' && params.amountReceivedPaise !== undefined) {
@@ -320,7 +350,6 @@ export function createInvoice(params: CreateInvoiceParams): { success: boolean; 
       cashierName: params.cashierName || 'Admin / Cashier',
     };
 
-    const existingInvoices = getInvoices();
     writeToStorage(INVOICES_KEY, [newInvoice, ...existingInvoices]);
 
     if (db) {
